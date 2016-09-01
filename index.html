@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/league.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+                <!-- 1 -->
+                <section>
+                    <p>Bridge  Android</p>
+                </section>
+
+                <!-- 2 -->
+				<section>
+                    <ol>
+                        <li>bridge</li>
+                        <li>js</li>
+                        <li>android</li>
+                    </ol>
+                </section>
+
+                <!--introduce-->
+                <section>
+                    <section>
+                        <h4>一个WebView有一系列定制化的功能可以用来帮助我们定制一些我们自己所需要的特殊功能</h4>
+                        <br>
+                        <ol>
+                            <li>修改WebSettings，使其变得可以支持JS运行。</li>
+                            <br>
+                            <li>向WebView注入一个Java对象，这个对象讲注入到JS Context中，使JS可以在页面中使用它。</li>
+                            <br>
+                            <li>...</li>
+                        </ol>
+                    </section>
+
+                    <section id="fragments">
+                        <h4>修改 WebSettings</h4><br>
+                        <p style="font-size: 24px;" class="fragment">
+                            WebSettings用来管理WebView的一些设置，每当一个WebView被创建的时候，它都会返回一系列的默认值，都可以通过getter方法获取这些默认值
+                        </p><br>
+                        <p style="font-size: 24px;" class="fragment">
+                            而WebSettings对象是通过WebView.getSettings()获取的，这个和WebView的生命周期是绑定在一起的。
+                        </p><br>
+                        <p style="font-size: 24px;" class="fragment">
+                            主要使用到了setJavaScriptEnabled(boolean flag)
+                        </p><br>
+                        <p style="font-size: 24px;" class="fragment">
+                            这个方法将告诉WebView JS可执行，默认值是false
+                        </p>
+                    </section>
+
+                </section>
+
+                <!--过场景-->
+                <section data-background="pic/jstoandroid.png">
+                    <p style="color: #47b8e9;text-align: left">JS call Android</p>
+                </section>
+
+                <!--js call android-->
+                <section>
+                    <section>
+                        <p>android 端实现</p>
+                    </section>
+                    <section>
+
+                        <h2>编写接口</h2>
+                        <pre>
+                            <code class="hljs" data-trim contenteditable>
+public class WebViewJavaScriptInterfaces {
+    private Context context;
+
+    public WebViewJavaScriptInterfaces (Context context) {
+        this.context = context;
+    }
+
+    @JavascriptInterface
+    public void sayHello (String words) {
+        Toast.makeText(context, words, Toast.LENGTH_LONG);
+    }
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>
+                        <h2>编写主方法</h2>
+                        <pre>
+                            <code class="hljs" data-trim contenteditable>
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    WebView webView = (WebView) findViewById(R.id.web_view);
+    String filePath = "";
+
+    webView.loadUrl(filePath); // 加载本地hybrid文件
+
+    webView.getSettings().setJavaScriptEnabled(true); // 启用js可用
+
+    // 将java对象添加到WebView的interface上
+    webView.addJavascriptInterface(new WebViewJavaScriptInterfaces(this), "saySomething");
+}
+                            </code>
+                        </pre>
+                    </section>
+
+                    <section>  
+                        <p>JavaScript 实现</p>                        
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code class="javascript" data-trim contenteditable>
+function sayHello( words ) {
+  if( words ) {
+
+    window.saySomething.sayHello( words );
+
+  } else {
+    alert( 'please tell me what do you want to say' );
+  }
+}
+
+                            </code>
+                        </pre>       
+                    </section>
+                </section>
+
+                <!--过场2-->
+                <section data-background="pic/androidtojs.png">
+                    <p style="color: #47b8e9;text-align: right;">Android call JS</p>
+                </section>
+
+                <!--android call js-->
+                <section>
+                    <section>
+                        <p>loadUrl</p>
+                        <img src="pic/loadurl.png" />
+                    </section>
+
+                    <section>
+                        <p>evaluateJavascript</p>
+                        <img src="pic/evaljs.png" />
+                    </section>
+
+                    <section>
+                        <pre>
+                            <code>
+// 简单的native call js
+String script = "javascript: alert('1');";
+webView.loadUrl(script);
+                            </code>
+                        </pre>
+                    </section>
+                </section>
+
+                <!-- another -->
+                <section>
+                    <section>
+                        sync? async?
+                    </section>
+                    <section id="fragments2">
+                        <p>js calls android is a sync call</p>
+                        <p class="fragment">
+                            因为Java方法声明,void String Int...
+                        </p>
+                        <p class="fragment">
+                            因为Java会立即返回一个值或者是void
+                        </p>
+                    </section>
+                    <section>
+                        <p>android calls js is an async call</p>
+                        <p class="fragment">
+                            因为loadUrl(String str)不会立即返回一个值
+                        </p>
+                        <p class="fragment">
+                            所以我们需要另起一个线程去执行这个任务（Java多线程，JavaScript单线程）
+                        </p>
+                        <p class="fragment">
+                            那么我们Js就没有办法立即获得结果
+                        </p>
+                    </section>
+                    <section>
+                        <a href="http://hongchaozhang.github.io/GitBlogs/code/2015/07/28/Communication-between-WebView-and-native-android.html">传送门</a>
+                    </section>
+                </section>
+
+                <!--bridge-->
+                <section>
+                    <section><img src="pic/callnative.png" /></section>
+                    <section><img src="pic/appcallback.png" /></section>
+                </section>
+
+                <section>
+                    <section data-background="pic/wallhaven-238016.jpg">
+                        <h1>带你走进二次元</h1>
+                    </section>
+                    <section>
+                        <a href="www.bilibili.com">bilibili</a><br>
+                        <a href="www.acfun.tv">acfun</a><br>
+                        <a href="javascript:;">Neet</a>
+                    </section>
+                </section>
+
+                <!--end-->
+                <section>
+                    <h4>End</h4>
+                    <p>谢谢</p>
+                    <p>thx</p>
+                    <p>ありがとうございます</p>
+                </section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+                transition: 'concave',
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
