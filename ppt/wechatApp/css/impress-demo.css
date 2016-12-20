@@ -213,7 +213,8 @@ a:focus {
     height: 700px;
     padding: 40px 60px;
 
-    background-color: white;
+    /*background-color: white;*/
+    background-color: #f8f8f8; /** modified by ws for changing the background color **/
     border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 10px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
