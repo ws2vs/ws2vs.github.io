@@ -32,9 +32,9 @@
         <!-- 2 -->
         <section>
             <ol>
-                <li>chain of responsibility</li>
-                <li>command</li>
-                <li>interpreter</li>
+                <li><span style="color: #ff2c2d">chain of responsibility</span></li>
+                <li><span style="color: #17ff2e">command</span></li>
+                <li><span style="color: grey;">interpreter</span></li>
             </ol>
         </section>
 
@@ -76,167 +76,83 @@
             <!--3-5-->
             <section>
                 <h1>上代码</h1>
-                <a href="../src/cor.js"></a>
+                <a target="_blank" href="https://github.com/dcjin/dcjin.github.io/blob/master/ppt/reveal/src/cor.js">传送门</a>
+            </section>
+            <!--3-6-->
+            <section>
+                <p>职责链模式（Chain of responsibility）是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。</p>
+                <br>
+                <p>也就是说，请求以后，从第一个对象开始，链中收到请求的对象要么亲自处理它，要么转发给链中的下一个候选者。提交请求的对象并不明确知道哪一个对象将会处理它——也就是该请求有一个隐式的接受者（implicit receiver）。根据运行时刻，任一候选者都可以响应相应的请求，候选者的数目是任意的，你可以在运行时刻决定哪些候选者参与到链中。</p>
+            </section>
+            <!--3-7-->
+            <section>
+                <a href="https://www.dofactory.com/javascript/chain-of-responsibility-design-pattern">参考资料</a>
             </section>
         </section>
 
-        <!--过场景-->
-        <section data-background="../pic/androidBridge/jstoandroid.png">
-            <p style="color: #47b8e9;text-align: left">JS call Android</p>
-        </section>
-
-        <!--js call android-->
+        <!-- 4 -->
         <section>
+            <!--4-1-->
             <section>
-                <p>android 端实现</p>
+                <p>command</p>
             </section>
-            <section>
-
-                <h2>编写接口</h2>
-                <pre>
-                            <code class="hljs" data-trim contenteditable>
-public class WebViewJavaScriptInterfaces {
-    private Context context;
-
-    public WebViewJavaScriptInterfaces (Context context) {
-        this.context = context;
-    }
-
-    @JavascriptInterface
-    public void sayHello (String words) {
-        Toast.makeText(context, words, Toast.LENGTH_LONG);
-    }
-}
-                            </code>
-                        </pre>
+            <!--4-2-->
+            <section data-transition="zoom">
+                <h4>皮一下</h4>
+                <img src="../pic/jsDesignPattern/5.jpg">
             </section>
-
-            <section>
-                <h2>编写主方法</h2>
-                <pre>
-                            <code class="hljs" data-trim contenteditable>
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-
-    WebView webView = (WebView) findViewById(R.id.web_view);
-    String filePath = "";
-
-    webView.loadUrl(filePath); // 加载本地hybrid文件
-
-    webView.getSettings().setJavaScriptEnabled(true); // 启用js可用
-
-    // 将java对象添加到WebView的interface上
-    webView.addJavascriptInterface(new WebViewJavaScriptInterfaces(this), "saySomething");
-}
-                            </code>
-                        </pre>
+            <!--4-3-->
+            <section data-transition="zoom">
+                <h4>UML</h4>
+                <img class="fragment grow" src="../pic/jsDesignPattern/4.jpg">
             </section>
-
+            <!--4-4-->
             <section>
-                <p>JavaScript 实现</p>
+                <h1>上代码</h1>
+                <a target="_blank" href="https://github.com/dcjin/dcjin.github.io/blob/master/ppt/reveal/src/command.js">传送门</a>
             </section>
-
+            <!--4-5-->
             <section>
-                        <pre>
-                            <code class="javascript" data-trim contenteditable>
-function sayHello( words ) {
-  if( words ) {
-
-    window.saySomething.sayHello( words );
-
-  } else {
-    alert( 'please tell me what do you want to say' );
-  }
-}
-
-                            </code>
-                        </pre>
+                <p>命令模式(Command)的定义是：用于将一个请求封装成一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或者记录请求日志，以及执行可撤销的操作。</p>
+                <br>
+                <p>也就是说改模式旨在将函数的调用、请求和操作封装成一个单一的对象，然后对这个对象进行一系列的处理。此外，可以通过调用实现具体函数的对象来解耦命令对象与接收对象。</p>
+            </section>
+            <!--4-6-->
+            <section>
+                <a href="https://www.dofactory.com/javascript/command-design-pattern">参考资料</a>
             </section>
         </section>
 
-        <!--过场2-->
-        <section data-background="../pic/androidBridge/androidtojs.png">
-            <p style="color: #47b8e9;text-align: right;">Android call JS</p>
-        </section>
-
-        <!--android call js-->
+        <!-- 5 -->
         <section>
+            <!--5-1-->
             <section>
-                <p>loadUrl</p>
-                <img src="../pic/androidBridge/androidBridge/loadurl.png" />
+                <p>interpreter</p>
             </section>
-
+            <!--5-2-->
+            <section data-transition="zoom">
+                <h4>大概解释下</h4>
+                <p>定义一种语言，就叫他巴啦啦语，比如里面有个9527，我有一个解释器，解释器会告诉你这个9527是什么意思。。。。</p>
+            </section>
+            <!--5-3-->
+            <section data-transition="zoom">
+                <h4>UML</h4>
+                <img class="fragment grow" src="../pic/jsDesignPattern/6.jpg">
+            </section>
+            <!--5-4-->
             <section>
-                <p>evaluateJavascript</p>
-                <img src="../pic/androidBridge/androidBridge/evaljs.png" />
+                <h1>上代码</h1>
+                <a target="_blank" href="https://www.dofactory.com/javascript/interpreter-design-pattern">传送门</a>
             </section>
-
+            <!--5-6-->
             <section>
-                        <pre>
-                            <code>
-// 简单的native call js
-String script = "javascript: alert('1');";
-webView.loadUrl(script);
-                            </code>
-                        </pre>
-            </section>
-        </section>
-
-        <!-- another -->
-        <section>
-            <section>
-                sync? async?
-            </section>
-            <section id="fragments2">
-                <p>js calls android is a sync call</p>
-                <p class="fragment">
-                    因为Java方法声明,void String Int...
-                </p>
-                <p class="fragment">
-                    因为Java会立即返回一个值或者是void
-                </p>
-            </section>
-            <section>
-                <p>android calls js is an async call</p>
-                <p class="fragment">
-                    因为loadUrl(String str)不会立即返回一个值
-                </p>
-                <p class="fragment">
-                    所以我们需要另起一个线程去执行这个任务（Java多线程，JavaScript单线程）
-                </p>
-                <p class="fragment">
-                    那么我们Js就没有办法立即获得结果
-                </p>
-            </section>
-            <section>
-                <a href="http://hongchaozhang.github.io/GitBlogs/code/2015/07/28/Communication-between-WebView-and-native-android.html">传送门</a>
-            </section>
-        </section>
-
-        <!--bridge-->
-        <section>
-            <section><img src="../pic/androidBridge/androidBridge/callnative.png" /></section>
-            <section><img src="../pic/androidBridge/androidBridge/appcallback.png" /></section>
-        </section>
-
-        <section>
-            <section data-background="../pic/androidBridge/wallhaven-238016.jpg">
-                <h1>带你走进二次元</h1>
-            </section>
-            <section>
-                <a target="blank" href="http://www.bilibili.com">bilibili</a><br>
-                <a target="blank" href="http://www.acfun.tv">acfun</a><br>
+                <a href="https://www.dofactory.com/javascript/interpreter-design-pattern">参考资料</a>
             </section>
         </section>
 
         <!--end-->
         <section>
             <h4>End</h4>
-            <p>谢谢</p>
-            <p>thx</p>
-            <p>ありがとうございます</p>
         </section>
     </div>
 </div>
