@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/sky.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <!-- 1 -->
+        <section>
+            <p>JavaScript Design Pattern</p>
+        </section>
+
+        <!-- 2 -->
+        <section>
+            <ol>
+                <li>chain of responsibility</li>
+                <li>command</li>
+                <li>interpreter</li>
+            </ol>
+        </section>
+
+        <!-- 3 -->
+        <section>
+            <!--3-1-->
+            <section>
+                <p>chain of responsibility</p>
+            </section>
+            <!--3-2-->
+            <section data-transition="zoom">
+                <h4>皮一下</h4>
+                <img src="../pic/jsDesignPattern/1.jpg">
+                <img src="../pic/jsDesignPattern/2.png">
+            </section>
+            <!--3-3-->
+            <section data-transition="zoom">
+                <h4>UML</h4>
+                <img class="fragment grow" src="../pic/jsDesignPattern/3.jpg">
+            </section>
+            <!--3-4-->
+            <section id="fragment1" data-transition="zoom">
+                <h4>简单的代码理解</h4>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+                        if () {
+                            // do something
+                        } else if () {
+                            // do something
+                        } else if () {
+                            // do something
+                        } else {
+                            // do something
+                        }
+					</code>
+                </pre>
+                <p class="fragment">再加点oop</p>
+            </section>
+            <!--3-5-->
+            <section>
+                <h1>上代码</h1>
+                <a href="../src/cor.js"></a>
+            </section>
+        </section>
+
+        <!--过场景-->
+        <section data-background="../pic/androidBridge/jstoandroid.png">
+            <p style="color: #47b8e9;text-align: left">JS call Android</p>
+        </section>
+
+        <!--js call android-->
+        <section>
+            <section>
+                <p>android 端实现</p>
+            </section>
+            <section>
+
+                <h2>编写接口</h2>
+                <pre>
+                            <code class="hljs" data-trim contenteditable>
+public class WebViewJavaScriptInterfaces {
+    private Context context;
+
+    public WebViewJavaScriptInterfaces (Context context) {
+        this.context = context;
+    }
+
+    @JavascriptInterface
+    public void sayHello (String words) {
+        Toast.makeText(context, words, Toast.LENGTH_LONG);
+    }
+}
+                            </code>
+                        </pre>
+            </section>
+
+            <section>
+                <h2>编写主方法</h2>
+                <pre>
+                            <code class="hljs" data-trim contenteditable>
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    WebView webView = (WebView) findViewById(R.id.web_view);
+    String filePath = "";
+
+    webView.loadUrl(filePath); // 加载本地hybrid文件
+
+    webView.getSettings().setJavaScriptEnabled(true); // 启用js可用
+
+    // 将java对象添加到WebView的interface上
+    webView.addJavascriptInterface(new WebViewJavaScriptInterfaces(this), "saySomething");
+}
+                            </code>
+                        </pre>
+            </section>
+
+            <section>
+                <p>JavaScript 实现</p>
+            </section>
+
+            <section>
+                        <pre>
+                            <code class="javascript" data-trim contenteditable>
+function sayHello( words ) {
+  if( words ) {
+
+    window.saySomething.sayHello( words );
+
+  } else {
+    alert( 'please tell me what do you want to say' );
+  }
+}
+
+                            </code>
+                        </pre>
+            </section>
+        </section>
+
+        <!--过场2-->
+        <section data-background="../pic/androidBridge/androidtojs.png">
+            <p style="color: #47b8e9;text-align: right;">Android call JS</p>
+        </section>
+
+        <!--android call js-->
+        <section>
+            <section>
+                <p>loadUrl</p>
+                <img src="../pic/androidBridge/androidBridge/loadurl.png" />
+            </section>
+
+            <section>
+                <p>evaluateJavascript</p>
+                <img src="../pic/androidBridge/androidBridge/evaljs.png" />
+            </section>
+
+            <section>
+                        <pre>
+                            <code>
+// 简单的native call js
+String script = "javascript: alert('1');";
+webView.loadUrl(script);
+                            </code>
+                        </pre>
+            </section>
+        </section>
+
+        <!-- another -->
+        <section>
+            <section>
+                sync? async?
+            </section>
+            <section id="fragments2">
+                <p>js calls android is a sync call</p>
+                <p class="fragment">
+                    因为Java方法声明,void String Int...
+                </p>
+                <p class="fragment">
+                    因为Java会立即返回一个值或者是void
+                </p>
+            </section>
+            <section>
+                <p>android calls js is an async call</p>
+                <p class="fragment">
+                    因为loadUrl(String str)不会立即返回一个值
+                </p>
+                <p class="fragment">
+                    所以我们需要另起一个线程去执行这个任务（Java多线程，JavaScript单线程）
+                </p>
+                <p class="fragment">
+                    那么我们Js就没有办法立即获得结果
+                </p>
+            </section>
+            <section>
+                <a href="http://hongchaozhang.github.io/GitBlogs/code/2015/07/28/Communication-between-WebView-and-native-android.html">传送门</a>
+            </section>
+        </section>
+
+        <!--bridge-->
+        <section>
+            <section><img src="../pic/androidBridge/androidBridge/callnative.png" /></section>
+            <section><img src="../pic/androidBridge/androidBridge/appcallback.png" /></section>
+        </section>
+
+        <section>
+            <section data-background="../pic/androidBridge/wallhaven-238016.jpg">
+                <h1>带你走进二次元</h1>
+            </section>
+            <section>
+                <a target="blank" href="http://www.bilibili.com">bilibili</a><br>
+                <a target="blank" href="http://www.acfun.tv">acfun</a><br>
+            </section>
+        </section>
+
+        <!--end-->
+        <section>
+            <h4>End</h4>
+            <p>谢谢</p>
+            <p>thx</p>
+            <p>ありがとうございます</p>
+        </section>
+    </div>
+</div>
+
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        transition: 'fade',
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
