@@ -1,0 +1,331 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../src/libs/reveal/css/reveal.css">
+    <link rel="stylesheet" href="../src/libs/reveal/css/theme/solarized.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../src/libs/reveal/lib/css/zenburn.css">
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <!-- 1 -->
+        <section>
+            <p>es6入门</p>
+        </section>
+
+        <section>
+            <h3>字符串的扩展</h3>
+        </section>
+
+        <!-- 3 -->
+        <section>
+            <!--3-1-->
+            <section>
+                <h3>Unicode增强</h3>
+            </section>
+            <!--3-2-->
+            <section id="fragment1" data-transition="zoom fade-out">
+                <p>对字符串Unicode支持的增强，主要体现为对大于0xFFFF码点的支持。</p>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+var a = '𠮷'; // 同吉 \u20BB7
+console.log(a.length); // 2
+                    </code>
+                </pre>
+                <p class="fragment">"\u20BB7"过了es5最大的码点0xFFFF，被当做了两个字符： "\uD842\uDFB7"</p>
+                <p class="fragment">JavaScript字符以utf-16存储，每个字符固定2字节。</p>
+            </section>
+            <!--3-3-->
+            <section data-transition="zoom fade-out">
+                <p>es6的增强在于引入了{}的标识法来支持大码，不这么做es5不会识别，会出乱码</p>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+"\u{20BB7}" === "\uD842\uDFB7"
+                    </code>
+                </pre>
+            </section>
+            <!--3-4-->
+            <section data-transition="zoom fade-out">
+                <h4>类似的增强还有</h4>
+                <ul>
+                    <li>charAt => codePointAt</li>
+                    <li>fromCharCode => fromCodePoint</li>
+                    <li>...</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>for of</h3>
+            </section>
+            <section id="fragment2" data-transition="zoom fade-out">
+                <p>以前是这么写的</p>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+for (var i = 0, len = arr.length; i < len; i++) {
+	console.log(arr[i]);
+	// continue;
+	// break;
+	// 这些都支持
+}
+                    </code>
+                </pre>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+arr.forEach(function(i) {
+	console.log(i);
+	// return 不能中断循环
+});
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>或者你还这么写过。。。</p>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+for (var i in arr) {
+    console.log(arr[i]);
+	// i ==> "1" not 1
+	// 遍历原型链
+	// object-like遍历
+}
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>现在你可以这么写</p>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+for (let i of arr) {
+	console.log(i);
+}
+                    </code>
+                </pre>
+                <ul>
+                    <li><p class="fragment">没有任何for in 的副作用</p></li>
+                    <li><p class="fragment">还支持break和continue</p></li>
+                    <li><p class="fragment">data-like 遍历（array, DOM）</p></li>
+                    <li><p class="fragment">支持字符串遍历（Unicode字符）</p></li>
+                    <li><p class="fragment">支持Map，Set...</p></li>
+                    <li><p class="fragment">Iterator...</p></li>
+                </ul>
+            </section>
+            <section>
+                <p>但是</p>
+                <p>babel编译时，也是添加了Symbol.Iterator，若不支持Symbol还是会报错，你可能需要babel-polyfill</p>
+            </section>
+        </section>
+
+        <section>
+            <section><h3>``的标签模板</h3></section>
+            <section>
+                 <pre>
+                    <code class="hljs" data-trim contenteditable>
+alert(123) === alert`123`
+
+let a = 5;
+let b = 10;
+
+function tag(s, v1, v2) {
+  console.log(s[0]);
+  console.log(s[1]);
+  console.log(s[2]);
+  console.log(v1);
+  console.log(v2);
+
+  return "OK";
+}
+
+tag`Hello ${ a + b } world ${ a * b}`;
+                    </code>
+                </pre>
+            </section>
+            <section>styled-component</section>
+        </section>
+
+        <section>
+            <section><h3>假设这里有个标题</h3></section>
+            <section>
+                <p>.normalize()</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+enum N {
+	NFC = "NFC", // 视觉+语义，合并正确
+	NFD = "NFD", // 视觉+语义，拆分正确
+	NFKC = "NFKC", // 兼容版本（放宽条件）
+	NFKD = "NFKD"
+}
+'\u004F\u030C'.normalize(N.NFC).length // 1
+
+// Ǒ = O + ˇ
+// \u01D1 = \u004F + \u030C
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <p>一些可以简化的方法</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+const a = 'how are you? i\'m fine, how about you';
+
+a.indexOf('fine') > -1 === a.includes('fine')  // 判断字符串中是否有xxx
+a.indexOf('how') === 0 === a.startsWith('how') // 判断字符串一开始的是不是xxx
+                    </code>
+                </pre>
+
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+// 获取len长度个*
+const makeEncryptCode = (len = 0) => {
+    const ret = [];
+    const code = '*';
+    let i = len;
+    while (i > 0) {
+        ret.push(code);
+
+        i -= 1;
+    }
+
+    return ret.join('');
+};
+
+// so....
+'*'.repeat(3) === makeEncryptCode(3)
+                    </code>
+                </pre>
+            </section>
+            <section>
+                 <pre>
+                    <code class="hljs" data-trim contenteditable>
+// orderId补全
+const zeroFill = (num, n) => {//填充位数
+    let len = num.toString().length;
+    while (len < n) {
+        num = "0" + num;
+        len++;
+    }
+    return num;
+}
+
+zeroFill('123', 4) === '123'.padStart(4, '0')
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>正则的扩展</h3>
+        </section>
+
+        <section>
+            <section>
+                <h3>构造增强</h3>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+// es5
+var reg1 = new RegExp('xyz', 'igm');
+var reg2 = /xyz/igm;
+
+// es6
+new RegExp(/abc/ig, 'i')  第二个参数可以指定新的修饰符，会覆盖之前的
+                    </code>
+                </pre>
+            </section>
+
+            <section data-transition="zoom">
+                <p>字符串正则的方法挪位，最终都会调用RegExp实例上对应的方法</p>
+                <p style="color: #2aa198">String.prototype.match|replace|search|split</p>
+                <p style="color: #2aa198">RegExt.prototype.match|replace|search|split</p>
+            </section>
+        </section>
+
+        <section>
+            <section><h3>修饰符增强</h3></section>
+            <section data-transition="zoom">
+                <p>这些是es5的</p>
+                <ul>
+                    <li class="fragment"><span style="color: #aa2233">i</span>&nbsp;&nbsp;ignoreCase</li>
+                    <li class="fragment"><span style="color: #aa2233">g</span>&nbsp;&nbsp;global</li>
+                    <li class="fragment"><span style="color: #aa2233">m</span>&nbsp;&nbsp;multiline</li>
+                </ul>
+                <p class="fragment">这些是新增的</p>
+                <ul>
+                    <li class="fragment"><span style="color: #aa2233">u</span>&nbsp;&nbsp;unicode</li>
+                    <li class="fragment"><span style="color: #aa2233">y</span>&nbsp;&nbsp;sticky</li>
+                    <li class="fragment"><span style="color: #aa2233">s</span>&nbsp;&nbsp;dotAll</li>
+                </ul>
+            </section>
+            <section data-transition="zoom">
+                <p>u</p>
+                <p>继续拿`𠮷`来说事，主要对Unicode大码的支持</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+var s = '𠮷';
+
+/^.$/.test(s) // false
+/^.$/u.test(s) // true
+                    </code>
+                </pre>
+            </section>
+            <section data-transition="zoom">
+                <p>y</p>
+                <p>粘性匹配，同g是全局匹配。每次匹配之后，g是剩下所有的有就可以，有y是需要从头开始的</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+var s = 'aaa_aa_a';
+var r1 = /a+/g;
+var r2 = /a+/y;
+
+r1.exec(s) // ["aaa"]
+r2.exec(s) // ["aaa"]
+
+r1.exec(s) // ["aa"]
+r2.exec(s) // null
+                    </code>
+                </pre>
+            </section>
+            <section data-transition="zoom">
+                <p>s</p>
+                <p>. 匹配任意单个字符，但是Unicode大码不行，还有这四个不行</p>
+                <p>U+000A 换行符（\n）</p>
+                <p>U+000D 回车符（\r）</p>
+                <p>U+2028 行分隔符（line separator）</p>
+                <p>U+2029 段分隔符（paragraph separator）</p>
+            </section>
+        </section>
+
+        <!--end-->
+        <section>
+            <h4>End</h4>
+        </section>
+    </div>
+</div>
+
+<script src="../src/libs/reveal/lib/js/head.min.js"></script>
+<script src="../src/libs/reveal/js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        transition: 'fade',
+        dependencies: [
+            {
+                src: '../src/libs/reveal/plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

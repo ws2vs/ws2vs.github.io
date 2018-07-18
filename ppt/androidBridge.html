@@ -230,11 +230,11 @@ webView.loadUrl(script);
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-                    { src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+					{ src: '../src/libs/reveal/plugin/markdown/marked.js' },
+					{ src: '../src/libs/reveal/plugin/markdown/markdown.js' },
+					{ src: '../src/libs/reveal/plugin/notes/notes.js', async: true },
+                    { src: '../src/libs/reveal/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../src/libs/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
 		</script>
