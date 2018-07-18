@@ -267,9 +267,9 @@
 
 			for( var i = 0, len = lazyLoadable.length; i < len; i++ ) {
 				var element = lazyLoadable[i];
-				if( element.getAttribute( 'data-src' ) ) {
-					element.setAttribute( 'src', element.getAttribute( 'data-src' ) );
-					element.removeAttribute( 'data-src' );
+				if( element.getAttribute( 'data-code' ) ) {
+					element.setAttribute( 'src', element.getAttribute( 'data-code' ) );
+					element.removeAttribute( 'data-code' );
 				}
 			}
 
@@ -1499,7 +1499,7 @@
 			'</header>',
 			'<div class="spinner"></div>',
 			'<div class="viewport">',
-				'<iframe src="'+ url +'"></iframe>',
+				'<iframe code="'+ url +'"></iframe>',
 			'</div>'
 		].join('');
 
@@ -2876,26 +2876,26 @@
 	/**
 	 * Called when the given slide is within the configured view
 	 * distance. Shows the slide element and loads any content
-	 * that is set to load lazily (data-src).
+	 * that is set to load lazily (data-code).
 	 */
 	function showSlide( slide ) {
 
 		// Show the slide element
 		slide.style.display = 'block';
 
-		// Media elements with data-src attributes
-		toArray( slide.querySelectorAll( 'img[data-src], video[data-src], audio[data-src]' ) ).forEach( function( element ) {
-			element.setAttribute( 'src', element.getAttribute( 'data-src' ) );
-			element.removeAttribute( 'data-src' );
+		// Media elements with data-code attributes
+		toArray( slide.querySelectorAll( 'img[data-code], video[data-code], audio[data-code]' ) ).forEach( function( element ) {
+			element.setAttribute( 'src', element.getAttribute( 'data-code' ) );
+			element.removeAttribute( 'data-code' );
 		} );
 
 		// Media elements with <source> children
 		toArray( slide.querySelectorAll( 'video, audio' ) ).forEach( function( media ) {
 			var sources = 0;
 
-			toArray( media.querySelectorAll( 'source[data-src]' ) ).forEach( function( source ) {
-				source.setAttribute( 'src', source.getAttribute( 'data-src' ) );
-				source.removeAttribute( 'data-src' );
+			toArray( media.querySelectorAll( 'source[data-code]' ) ).forEach( function( source ) {
+				source.setAttribute( 'src', source.getAttribute( 'data-code' ) );
+				source.removeAttribute( 'data-code' );
 				sources += 1;
 			} );
 
@@ -2941,7 +2941,7 @@
 
 					// Support comma separated lists of video sources
 					backgroundVideo.split( ',' ).forEach( function( source ) {
-						video.innerHTML += '<source src="'+ source +'">';
+						video.innerHTML += '<source code="'+ source +'">';
 					} );
 
 					background.appendChild( video );
@@ -3047,11 +3047,11 @@
 
 		// YouTube frames must include "?enablejsapi=1"
 		_appendParamToIframeSource( 'src', 'youtube.com/embed/', 'enablejsapi=1' );
-		_appendParamToIframeSource( 'data-src', 'youtube.com/embed/', 'enablejsapi=1' );
+		_appendParamToIframeSource( 'data-code', 'youtube.com/embed/', 'enablejsapi=1' );
 
 		// Vimeo frames must include "?api=1"
 		_appendParamToIframeSource( 'src', 'player.vimeo.com/', 'api=1' );
-		_appendParamToIframeSource( 'data-src', 'player.vimeo.com/', 'api=1' );
+		_appendParamToIframeSource( 'data-code', 'player.vimeo.com/', 'api=1' );
 
 	}
 
@@ -3063,7 +3063,7 @@
 
 		if( slide && !isSpeakerNotes() ) {
 			// Restart GIFs
-			toArray( slide.querySelectorAll( 'img[src$=".gif"]' ) ).forEach( function( el ) {
+			toArray( slide.querySelectorAll( 'img[code$=".gif"]' ) ).forEach( function( el ) {
 				// Setting the same unchanged source like this was confirmed
 				// to work in Chrome, FF & Safari
 				el.setAttribute( 'src', el.getAttribute( 'src' ) );
@@ -3077,16 +3077,16 @@
 			} );
 
 			// Normal iframes
-			toArray( slide.querySelectorAll( 'iframe[src]' ) ).forEach( function( el ) {
+			toArray( slide.querySelectorAll( 'iframe[code]' ) ).forEach( function( el ) {
 				startEmbeddedIframe( { target: el } );
 			} );
 
 			// Lazy loading iframes
-			toArray( slide.querySelectorAll( 'iframe[data-src]' ) ).forEach( function( el ) {
-				if( el.getAttribute( 'src' ) !== el.getAttribute( 'data-src' ) ) {
+			toArray( slide.querySelectorAll( 'iframe[data-code]' ) ).forEach( function( el ) {
+				if( el.getAttribute( 'src' ) !== el.getAttribute( 'data-code' ) ) {
 					el.removeEventListener( 'load', startEmbeddedIframe ); // remove first to avoid dupes
 					el.addEventListener( 'load', startEmbeddedIframe );
-					el.setAttribute( 'src', el.getAttribute( 'data-src' ) );
+					el.setAttribute( 'src', el.getAttribute( 'data-code' ) );
 				}
 			} );
 		}
@@ -3137,22 +3137,22 @@
 			});
 
 			// YouTube postMessage API
-			toArray( slide.querySelectorAll( 'iframe[src*="youtube.com/embed/"]' ) ).forEach( function( el ) {
+			toArray( slide.querySelectorAll( 'iframe[code*="youtube.com/embed/"]' ) ).forEach( function( el ) {
 				if( !el.hasAttribute( 'data-ignore' ) && typeof el.contentWindow.postMessage === 'function' ) {
 					el.contentWindow.postMessage( '{"event":"command","func":"pauseVideo","args":""}', '*' );
 				}
 			});
 
 			// Vimeo postMessage API
-			toArray( slide.querySelectorAll( 'iframe[src*="player.vimeo.com/"]' ) ).forEach( function( el ) {
+			toArray( slide.querySelectorAll( 'iframe[code*="player.vimeo.com/"]' ) ).forEach( function( el ) {
 				if( !el.hasAttribute( 'data-ignore' ) && typeof el.contentWindow.postMessage === 'function' ) {
 					el.contentWindow.postMessage( '{"method":"pause"}', '*' );
 				}
 			});
 
 			// Lazy loading iframes
-			toArray( slide.querySelectorAll( 'iframe[data-src]' ) ).forEach( function( el ) {
-				// Only removing the src doesn't actually unload the frame
+			toArray( slide.querySelectorAll( 'iframe[data-code]' ) ).forEach( function( el ) {
+				// Only removing the code doesn't actually unload the frame
 				// in all browsers (Firefox) so we set it to blank first
 				el.setAttribute( 'src', 'about:blank' );
 				el.removeAttribute( 'src' );

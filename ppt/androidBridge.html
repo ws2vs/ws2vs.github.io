@@ -6,11 +6,11 @@
 
 		<title>reveal.js</title>
 
-		<link rel="stylesheet" href="../css/reveal.css">
-		<link rel="stylesheet" href="../css/theme/league.css">
+		<link rel="stylesheet" href="../src/libs/reveal/css/reveal.css">
+		<link rel="stylesheet" href="../src/libs/reveal/css/theme/league.css">
 
 		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="../lib/css/zenburn.css">
+		<link rel="stylesheet" href="../src/libs/reveal/lib/css/zenburn.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -71,7 +71,7 @@
                 </section>
 
                 <!--过场景-->
-                <section data-background="../pic/androidBridge/jstoandroid.png">
+                <section data-background="./pic/androidBridge/jstoandroid.png">
                     <p style="color: #47b8e9;text-align: left">JS call Android</p>
                 </section>
 
@@ -147,7 +147,7 @@ function sayHello( words ) {
                 </section>
 
                 <!--过场2-->
-                <section data-background="../pic/androidBridge/androidtojs.png">
+                <section data-background="./pic/androidBridge/androidtojs.png">
                     <p style="color: #47b8e9;text-align: right;">Android call JS</p>
                 </section>
 
@@ -155,12 +155,12 @@ function sayHello( words ) {
                 <section>
                     <section>
                         <p>loadUrl</p>
-                        <img src="../pic/androidBridge/androidBridge/loadurl.png" />
+                        <img src="./pic/androidBridge/loadurl.png" />
                     </section>
 
                     <section>
                         <p>evaluateJavascript</p>
-                        <img src="../pic/androidBridge/androidBridge/evaljs.png" />
+                        <img src="./pic/androidBridge/evaljs.png" />
                     </section>
 
                     <section>
@@ -207,32 +207,19 @@ webView.loadUrl(script);
 
                 <!--bridge-->
                 <section>
-                    <section><img src="../pic/androidBridge/androidBridge/callnative.png" /></section>
-                    <section><img src="../pic/androidBridge/androidBridge/appcallback.png" /></section>
-                </section>
-
-                <section>
-                    <section data-background="../pic/androidBridge/wallhaven-238016.jpg">
-                        <h1>带你走进二次元</h1>
-                    </section>
-                    <section>
-                        <a target="blank" href="http://www.bilibili.com">bilibili</a><br>
-                        <a target="blank" href="http://www.acfun.tv">acfun</a><br>
-                    </section>
+                    <section><img src="./pic/androidBridge/callnative.png" /></section>
+                    <section><img src="./pic/androidBridge/appcallback.png" /></section>
                 </section>
 
                 <!--end-->
                 <section>
                     <h4>End</h4>
-                    <p>谢谢</p>
-                    <p>thx</p>
-                    <p>ありがとうございます</p>
                 </section>
 			</div>
 		</div>
 
-		<script src="../lib/js/head.min.js"></script>
-		<script src="../js/reveal.js"></script>
+		<script src="../src/libs/reveal/lib/js/head.min.js"></script>
+		<script src="../src/libs/reveal/js/reveal.js"></script>
 
 		<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
