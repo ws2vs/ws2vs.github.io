@@ -36,17 +36,18 @@
                 <pre class="fragment">
                     <code class="hljs" data-trim contenteditable>
 var a = '𠮷'; // 同吉 \u20BB7
-console.log(a.length); // 2
+console.log(a.length); // 2？ 2!
                     </code>
                 </pre>
-                <p class="fragment">"\u20BB7"过了es5最大的码点0xFFFF，被当做了两个字符： "\uD842\uDFB7"</p>
                 <p class="fragment">JavaScript字符以utf-16存储，每个字符固定2字节。</p>
+                <p class="fragment">"\u20BB7"过了es5最大的码点0xFFFF，被当做了两个字符： "\uD842\uDFB7"，需4个字节</p>
             </section>
             <!--3-3-->
             <section data-transition="zoom fade-out">
                 <p>es6的增强在于引入了{}的标识法来支持大码，不这么做es5不会识别，会出乱码</p>
                 <pre class="fragment">
                     <code class="hljs" data-trim contenteditable>
+"\u20BB7" // "₻7" chrome
 "\u{20BB7}" === "\uD842\uDFB7"
                     </code>
                 </pre>
@@ -93,8 +94,10 @@ arr.forEach(function(i) {
                     <code class="hljs" data-trim contenteditable>
 for (var i in arr) {
     console.log(arr[i]);
+    // 它很快。。。仅仅是写的时候
 	// i ==> "1" not 1
 	// 遍历原型链
+    // 顺序不被保证
 	// object-like遍历
 }
                     </code>
@@ -107,6 +110,11 @@ for (var i in arr) {
 for (let i of arr) {
 	console.log(i);
 }
+// 比如。。。
+var a = '𠮷';
+for (let i of a) {
+    console.log(i); // 只会打印一次，并且是"𠮷"！
+}
                     </code>
                 </pre>
                 <ul>
@@ -115,7 +123,6 @@ for (let i of arr) {
                     <li><p class="fragment">data-like 遍历（array, DOM）</p></li>
                     <li><p class="fragment">支持字符串遍历（Unicode字符）</p></li>
                     <li><p class="fragment">支持Map，Set...</p></li>
-                    <li><p class="fragment">Iterator...</p></li>
                 </ul>
             </section>
             <section>
@@ -148,7 +155,18 @@ tag`Hello ${ a + b } world ${ a * b}`;
                     </code>
                 </pre>
             </section>
-            <section>styled-component</section>
+            <section>
+                <p>styled-component</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+const MaskView = styled.View`
+    width: ${width}px;
+    height: ${height}px;
+    background-color: rgba(0, 0, 0, 0.5);
+`;
+                    </code>
+                </pre>
+            </section>
         </section>
 
         <section>
@@ -299,6 +317,62 @@ r2.exec(s) // null
                 <p>U+000D 回车符（\r）</p>
                 <p>U+2028 行分隔符（line separator）</p>
                 <p>U+2029 段分隔符（paragraph separator）</p>
+            </section>
+        </section>
+
+        <section>
+            <section><h3>具名匹配</h3></section>
+            <section data-transition="zoom">
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+var pattern = /^(\d{1,4})\-(\d{1,2})\-(\d{1,2})$/;
+var dateArr = '2018-12-31'.match(pattern);
+console.log(dateArr[1]);
+console.log(dateArr[2]);
+console.log(dateArr[3]);
+                    </code>
+                </pre>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+const newPattern = /(?<year>\d{1,4})-(?<month>\d{1,2})-(?<day>\d{1,2})/;
+const dateArr = '2018-12-31 12:12:12'.match(newPattern);
+
+console.log(dateArr.groups); // {year: "2018", month: "12", day: "31"}
+// 匹配失败，groups属性为undefined
+                    </code>
+                </pre>
+            </section>
+            <section data-transition="zoom">
+                <p>支持解构</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+const reg = /(?<year>\d{1,4})-(?<month>\d{1,2})-(?<day>\d{1,2})/;
+const str = '2018-12-31 12:12:12';
+const { groups: { year } } = reg.exec(str);
+                    </code>
+                </pre>
+            </section>
+            <section data-transition="zoom">
+                <p>支持replace时直接使用$<[your tag]>替换</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+let re = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u;
+
+'2015-01-02'.replace(re, '$<day>/$<month>/$<year>')
+// '02/01/2015'
+                    </code>
+                </pre>
+            </section>
+            <section data-transition="zoom">
+                <p>支持replace时直接使用$<[your tag]>替换</p>
+                <pre>
+                    <code class="hljs" data-trim contenteditable>
+let re = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u;
+
+'2015-01-02'.replace(re, '$<day>/$<month>/$<year>')
+// '02/01/2015'
+                    </code>
+                </pre>
             </section>
         </section>
 
