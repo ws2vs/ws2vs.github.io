@@ -1,6 +1,6 @@
 // import dependencies
 import 'jquery';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle';
 
 import React, { Component } from 'react';
