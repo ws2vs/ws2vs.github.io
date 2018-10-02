@@ -53,7 +53,7 @@ class App extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/doc/Note.md">Link</a>
+                                <a className="nav-link" href="/doc/Note">Note</a>
                             </li>
                         </ul>
                     </div>
