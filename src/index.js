@@ -52,6 +52,9 @@ class App extends Component {
                                     {this.getPPTList()}
                                 </div>
                             </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="/doc/Note.md">Link</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
