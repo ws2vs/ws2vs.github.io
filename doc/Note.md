@@ -41,7 +41,7 @@ clip < ~/.ssh/id_rsa.pub
 # git懒人
 ## 新增类似git命令
 
-mac版本
+mac版本（mac OS mojave 之前需要重启获得bin目录下的root权限，具体可以自行google；mojave之后在安全隐私那添加terminal进Full Disk Access即可）
 
 - git push
 	- 前往bin所在地: cd /usr/bin
@@ -64,12 +64,15 @@ TARGET_BRANCH_NAME=$1
 git fetch origin ${TARGET_BRANCH_NAME}:${TARGET_BRANCH_NAME}
 ```
 
-## git alias
-        ck = checkout
+## git alias(也可以写bash)
+	pp = !sh -c 'CURRENT=`git rev-parse --abbrev-ref HEAD` && git push origin ${CURRENT}'
+	ll = !sh -c 'TARGET=$0 && git fetch origin ${TARGET}:${TARGET}'
+	
+        ck = !sh -c 'git checkout $0'
+	cka = checkout .
         aa = add -A
         cm = commit -m
         cma = commit --amend
-        ll = pull
         ss = status
         st = stash
         stp = stash pop
