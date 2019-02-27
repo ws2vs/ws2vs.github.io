@@ -22,6 +22,10 @@ const PPT_LIST = [
     {
         name: '微信小程序',
         url: 'https://dcjin.github.io/ppt/wechatapp.html'
+    },
+    {
+        name: 'ES6-ArrayBuffer',
+        url: 'https://dcjin.github.io/ppt/es6-ab.html'
     }
 ];
 
