@@ -215,10 +215,10 @@ console.log(proxy.name); // ?
 
         transition: 'fade',
         dependencies: [
-            { src: '../src/libs/reveal/plugin/markdown/marked.js' },
-            { src: '../src/libs/reveal/plugin/markdown/markdown.js' },
+            { src: 'libs/reveal/plugin/markdown/marked.js' },
+            { src: 'libs/reveal/plugin/markdown/markdown.js' },
             {
-                src: '../src/libs/reveal/plugin/highlight/highlight.js', async: true, callback: function () {
+                src: 'libs/reveal/plugin/highlight/highlight.js', async: true, callback: function () {
                     hljs.initHighlightingOnLoad();
                 }
             }
