@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/dcjin/dcjin.github.io#readme",
   "dependencies": {
+    "async": "^3.1.0",
     "bootstrap": "^4.3.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.4",
