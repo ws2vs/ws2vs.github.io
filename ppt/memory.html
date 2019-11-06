@@ -83,7 +83,7 @@
             <section>
                 <p>rss包括了stack、heap、code segment</p>
                 <div class="fragment">
-                    <img src="pic/memory/bg2017041702-1.png" />
+                    <img src="./pic/memory/bg2017041702-1.png" />
                 </div>
             </section>
             <section>
@@ -100,13 +100,13 @@
             </section>
             <section>
                 <p>heap示意图</p>
-                <img src="pic/memory/20191022225505.png" />
+                <img src="./pic/memory/20191022225505.png" />
             </section>
             <section>
                 <p class="p60">v8的主要垃圾回收算法</p>
                 <p class="fragment">内存基于分代式回收机制，分为新生代和老生代</p>
                 <p class="fragment">新生代是指存活时间较短的对象，老生代是指存活时间较长的对象，或者常驻内存对象</p>
-                <img class="fragment" src="pic/memory/20191022225655.png" />
+                <img class="fragment" src="./pic/memory/20191022225655.png" />
             </section>
             <section>
                 <p class="p60">scavenge算法</p>
@@ -116,39 +116,39 @@
                     进行回收时，将From空间中存活的对象复制到To空间，那些非存活的对象将被释放。完成后From空间和To空间进行互换。
                     这是一种以空间换取时间的算法。
                 </p>
-                <img class="fragment" src="pic/memory/20191022225711.png" alt="">
+                <img class="fragment" src="./pic/memory/20191022225711.png" alt="">
             </section>
             <section>
                 <p class="p60">对象的晋升</p>
                 <p class="fragment">在复制移动的过程中，将那些存活周期长的对象，移动到老生代heap中的过程称之为晋升</p>
                 <p class="fragment">条件一：对象是否经历过一次scavenge算法</p>
-                <img class="fragment" src="pic/memory/20191022225717.png">
+                <img class="fragment" src="./pic/memory/20191022225717.png">
             </section>
             <section>
                 <p class="fragment">条件二：To空间是否已经使用超过25%</p>
-                <img class="fragment" src="pic/memory/20191022225723.png">
+                <img class="fragment" src="./pic/memory/20191022225723.png">
                 <p class="fragment">对象晋升后，在老生代heap中将接受新的算法来执行垃圾回收</p>
             </section>
             <section>
                 <p class="p60">Mark-Sweep</p>
                 <p class="fragment">标记清除，遍历所有对象，对存活对象进行标记，随后将未标记的对象清除</p>
-                <img src="pic/memory/20191022225730.png" class="fragment" />
+                <img src="./pic/memory/20191022225730.png" class="fragment" />
                 <p class="fragment">最大的问题是进行一次标记清除后，会出现内存片段不连续的问题</p>
             </section>
             <section>
                 <p class="p60">Mark-Compact</p>
                 <p class="fragment">标记整理，在整理过程中，将对象都往一端移动</p>
-                <img src="pic/memory/20191022225737.png" class="fragment" />
+                <img src="./pic/memory/20191022225737.png" class="fragment" />
                 <p class="fragment">移动了对象</p>
             </section>
             <section>
-                <img src="pic/memory/1571811231855.jpg" alt="">
+                <img src="./pic/memory/1571811231855.jpg" alt="">
             </section>
             <section>
                 <p class="p60">增量式垃圾回收</p>
                 <p class="fragment">垃圾回收会暂停JavaScript进行，垃圾回收的时间越长，页面越卡顿（动画）</p>
                 <p class="fragment">前三种GC方法都会导致JavaScript进程全停顿</p>
-                <img src="pic/memory/20191022225745.png" alt="">
+                <img src="./pic/memory/20191022225745.png" alt="">
             </section>
             <section>
                 <p>查看垃圾回收日志的方式主要是在启动时添加 --trace_gc 参数。</p>
