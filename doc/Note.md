@@ -61,6 +61,12 @@ TARGET_BRANCH_NAME=$1
 git fetch origin ${TARGET_BRANCH_NAME}:${TARGET_BRANCH_NAME}
 ```
 
+## git 常用命令
+
+- 强制调整远程分支到某个commit: `git reset --hard [some commit]`  `git push --force`
+- 删除分支（本地&远程）: `git branch -d [branch name]` `git push origin --delete [branch name]`
+- cherry-pick其他分支中的某个commit到当前分支: `git checkout [targe branch]` `git cherry-pick [some commit]`
+
 ## git alias(也可以写bash)
 
 ```
@@ -83,7 +89,7 @@ git fetch origin ${TARGET_BRANCH_NAME}:${TARGET_BRANCH_NAME}
         l = log -3
         mg = merge
         bh = branch
-        cp = cherry-pick:
+        cp = cherry-pick
 ```
 
 
