@@ -383,11 +383,8 @@ document.createElement('main');
 
         transition: 'convex',
         dependencies: [
-            { src: 'libs/reveal/plugin/markdown/marked.js' },
-            { src: 'libs/reveal/plugin/markdown/markdown.js' },
             {
                 src: 'libs/reveal/plugin/highlight/highlight.js',
-                async: true,
                 callback: function () {
                     hljs.initHighlightingOnLoad();
                 }
