@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #test {
+            color: magenta;
+        }
+    </style>
+</head>
+<body>
+
+<p id="test">test magenta color</p>
+<p>test no color</p>
+<script>
+    window.onload = () => {
+        const test = document.getElementById('test');
+        console.log(test);
+    };
+</script>
+</body>
+</html>
