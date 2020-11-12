@@ -324,7 +324,7 @@ document.createElement('main');
 <p class="success has-border is-v2 is-multi">多类继承复用重写抽象接口</p>
                     </code>
                 </pre>
-                <p class="fragment"><span class="red">但两个类名之间不能有空格</span></p>
+                <p class="fragment"><span class="red">css中但两个类名之间不能有空格</span></p>
             </section>
         </section>
 
@@ -353,7 +353,7 @@ document.createElement('main');
         <section>
             <!--            ID选择符-->
             <section>
-                <p class="p60">ID选择符 还是 类选择符</p>
+                <p class="p60"><span class="red">ID选择符</span> 还是 <span class="green">类选择符</span></p>
             </section>
 
             <section>
@@ -367,8 +367,93 @@ document.createElement('main');
                 <p class="">实际上HTML允许出现多个ID，且ID选择器可以生效</p>
                 <p class="fragment">但这会影响JavaScript document.getElementById 或者其他潜在的</p>
                 <p class="fragment"><span class="red">你的编辑器/IDE会提示你这些潜在的问题？？</span></p>
+                <p class="fragment"><span class="green">你的选择是？</span></p>
             </section>
         </section>
+
+        <section>
+            <section>
+                <p class="p60">属性选择符</p>
+                <p class="fragment">不管是类选择符还是ID选择符，选择的其实都是<span class="red">属性</span></p>
+                <p class="fragment">css2引入，为了解某些类型文档没有前面讲的<span class="red">class</span>和<span class="red">id</span>属性</p>
+                <p class="fragment">大致可以分为四类</p>
+                <p class="fragment"><span class="green">简单属性选择符</span></p>
+                <p class="fragment"><span class="green">精准属性值选择符</span></p>
+                <p class="fragment"><span class="green">部分匹配属性值选择符</span></p>
+                <p class="fragment"><span class="green">起始值属性值选择符</span></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <p class="p60">简单属性选择符</p>
+                <p class="fragment">只想选择具有某个属性的元素，<span class="red">而不在乎其值是什么</span></p>
+                <pre class="fragment">
+                    <code class="hljs" data-trim contenteditable>
+<style>
+     [class] {
+         border: 1px solid pink;
+     }
+</style>
+<p id="t1">开发者服务器返回的数据</p>
+<p class="fake-class">开发者服务器返回的 HTTP 状态码</p>
+<p class="success">开发者服务器返回的 cookies，格式为字符串数组</p>
+                    </code>
+                </pre>
+            </section>
+
+            <section>
+                <p>属性选择器在XML文档中相当有用</p>
+                <p class="fragment">XML语言主张要针对元素和属性的用途指定元素名和属性名</p>
+                <img class="fragment" src="./pic/css/Jietu20201112-225238@2x.png">
+            </section>
+
+
+        </section>
+
+        <section>
+            <p class="p60">精准属性值选择符</p>
+            <p class="fragment">进一步缩小范围，只选择有特定属性值的元素。</p>
+            <pre class="fragment">
+                <code class="hljs" data-trim contenteditable>
+<style>
+ [class='fake-class'] {
+     border: 1px solid pink;
+ }
+</style>
+<p id="t1">开发者服务器返回的数据</p>
+<p class="fake-class">开发者服务器返回的 HTTP 状态码</p>
+<p class="success">开发者服务器返回的 cookies，格式为字符串数组</p>
+                </code>
+            </pre>
+            <p class="fragment">值必须一致，<span class="red">===</span> 判断</p>
+        </section>
+
+        <section>
+            <section>
+                <p class="p60">部分匹配属性值选择符</p>
+                <p class="fragment">稍微放宽一些，想选择具有属性值一部分的元素。</p>
+                <p class="fragment"><span class="red">[foo*="bar"]</span> 选择的元素有foo属性，且其值包含子串bar <span class="green">(String.prototype.includes)</span></p>
+                <p class="fragment"><span class="red">[foo^="bar"]</span> 选择的元素有foo属性，且其值以bar开头 <span class="green">(String.prototype.startsWith)</span></p>
+                <p class="fragment"><span class="red">[foo$="bar"]</span> 选择的元素有foo属性，且其值以bar结尾 <span class="green">(String.prototype.endsWith)</span></p>
+            </section>
+
+            <section>
+                <p class="fragment"><span class="red">[foo~="bar"]</span> 选择的元素有foo属性，且其包含bar这个词的一组词</p>
+                <p class="fragment"><span class="red">[foo|="bar"]</span> 选择的元素有foo属性，且其值是bar和一个英文破折号<span class="red">-</span>开头的词组，或者就是其本身</p>
+            </section>
+
+            <section>
+                <p>不区分大小写的标识符</p>
+                <p class="fragment"><span class="green">[class^="fak" <span class="red">i</span>]</span></p>
+            </section>
+        </section>
+
+        <section>
+            <p class="red  p60">QA</p>
+            <p class="green fragment" style="font-size: 240px!important;">THX!</p>
+        </section>
+
 
     </div>
 </div>

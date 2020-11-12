@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [class~="joe-old"] {
+            font-size: 20px;
+            color: #333333;
+            width: 100px;
+            border: 1px solid deeppink;
+        }
+
+        [class*="joe"] {
+            height: 200px;
+        }
+
+        [class^="fak"] {
+            background-color: #cccccc;
+        }
+
+        [class$="d"] {
+            margin-left: 200px;
+        }
+
+        [class|="nobody"] {
+            font-size: 30px;
+            color: chocolate;
+        }
+
+        [class|="nobody-knows"] {
+            border: 5px dashed darkmagenta;
+        }
+
+        [class|="nobody-knows-be"] {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+<p class="FaKE-neWs joe-old">最终分数为6400分，想要上分真是不容易！</p>
+<p class="nobody-knows-better-than-me">观众朋友们如果知道答案也欢迎互相解答</p>
+</body>
+</html>
