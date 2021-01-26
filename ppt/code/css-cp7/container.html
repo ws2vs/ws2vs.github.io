@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0; margin: 0;
+        }
+        html {
+            background-color: #1c1e20;
+        }
+        .demo1 {
+            width: 400px;
+            height: 100px;
+            background-color: #1a6091;
+            border: 1px solid pink;
+            color: #ffffff;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .container {
+            position: absolute;
+            left: 10%;
+            top: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="demo1"></div>
+<div class="demo1 container"></div>
+<script>
+    window.onload = () => {
+        const body = document.querySelectorAll('body')[0];
+        console.log(body.offsetWidth);
+        const testDemo = document.querySelectorAll('.demo1.container');
+        if (testDemo && testDemo[0]) {
+            const left = getComputedStyle(testDemo[0]).left;
+            testDemo[0].innerText = `body.offsetWidth = ${body.offsetWidth}\nleft = ${left}`;
+        }
+    };
+</script>
+</body>
+</html>
