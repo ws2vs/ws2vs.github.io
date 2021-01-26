@@ -1,5 +1,18 @@
 # Note
 
+## webStorm
+
+### debugger 不成功，或者debugger refused
+
+编辑host，加入
+
+```
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+```
+
+
 ### 1 webStorm鸡和马
 
 ### 2 ssh key生成
