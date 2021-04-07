@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html {
+            background-color: #f8f8f8;
+        }
+        .grid-container {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            display: grid;
+        }
+        .line {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            margin: 40px 0;
+        }
+        .inline-grid-container {
+            display: inline-grid;
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<span>123</span>
+<div class="grid-container">
+    <div><p>1</p></div>
+    <div><p>2</p></div>
+    <div><p>3</p></div>
+</div>
+<div class="line"></div>
+
+<div>
+    <span>123</span>
+    <div class="inline-grid-container">
+        <div><p>1</p></div>
+        <div><p>2</p></div>
+        <div><p>3</p></div>
+    </div>
+    <span>456</span>
+</div>
+</body>
+</html>
