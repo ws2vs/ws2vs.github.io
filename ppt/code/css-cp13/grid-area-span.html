@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .line {
-            width: 100%;
-            height: 2px;
-            background-color: black;
-            margin: 20px 0;
-        }
         .block {
             width: 400px;
             height: 400px;
@@ -25,21 +19,23 @@
             border: 1px dashed forestgreen;
         }
 
+        .line {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+            margin: 20px 0;
+        }
+
         .item-1 {
-            grid-column-start: 2;
-            grid-column-end: 3;
-            grid-row-start: 2;
-            grid-row-end: 4;
+            grid-row: 2 / span 1;
+            grid-column: 2 / span 2;
             background-color: forestgreen;
         }
         .item-2 {
-            grid-row: 2 / 4;
-            grid-column: 1 / 5;
-            background-color: rgba(0, 0, 0, 0.5);
+            grid-row: 3 / 4;
+            grid-column: span 3 / 5;
         }
         .item-3 {
-            grid-row: 4 / 5;
-            grid-column: thursday / friday;
         }
     </style>
 </head>

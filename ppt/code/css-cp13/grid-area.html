@@ -11,18 +11,16 @@
         }
         .grid {
             display: grid;
-
             grid-template-rows: 100px 100px 100px;
-
-            /* px */
             grid-template-columns: 100px 100px 100px;
-
-            /* em */
-            /*grid-template-columns: 5em 100px 100px;*/
-
-            /* repeat */
-            /*grid-template-columns: repeat(3, 100px);*/
+            grid-template-areas:
+                    'icon header header'
+                    'sidebar main main'
+                    'sidebar footer footer';
         }
+
+        /* 合成一个字符串是错误的 */
+        /* 可以走L型吗 */
 
         .grid div {
             border: 1px dashed forestgreen;
@@ -31,15 +29,11 @@
 </head>
 <body>
 <div class="block grid">
-    <div><p>1</p></div>
-    <div><p>2</p></div>
-    <div><p>3</p></div>
-    <div><p>4</p></div>
-    <div><p>5</p></div>
-    <div><p>6</p></div>
-    <div><p>7</p></div>
-    <div><p>8</p></div>
-    <div><p>9</p></div>
+    <div style="grid-area: icon"><p>icon</p></div>
+    <div style="grid-area: header"><p>header</p></div>
+    <div style="grid-area: sidebar"><p>sidebar</p></div>
+    <div style="grid-area: main"><p>main</p></div>
+    <div style="grid-area: footer"><p>footer</p></div>
 </div>
 </body>
 </html>
