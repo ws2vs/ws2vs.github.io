@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@keyframms2</title>
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            left: 10px;
+            top: 20%;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        .col {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+        .block {
+            width: 100px;
+            height: 100px;
+            background-color: forestgreen;
+            animation-duration: 3s;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeout-invalid {
+            from {
+                display: none;
+            }
+            to {
+                display: block;
+            }
+        }
+        @keyframes animate-no-middle {
+            0% {
+                width: auto;
+            }
+            100% {
+                width: 300px;
+            }
+        }
+        @keyframes animate-no-middle-special {
+            from {
+                visibility: visible;
+            }
+            to {
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+<button id="back">返回首页</button>
+<button id="refresh">刷新页面</button>
+<div class="block"></div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col">
+            <h2>不支持动画的属性将被忽略</h2>
+            <button class="animate" data-name="fadeout-invalid">应用此样式</button>
+            <pre>
+                <code>
+@keyframes fadeout-invalid {
+    from {
+        display: none;
+    }
+    to {
+        display: block;
+    }
+}
+                </code>
+            </pre>
+        </div>
+        <div class="col">
+            <h2>不支持动画但不会被忽略的属性</h2>
+            <button class="animate" data-name="animate-no-middle-special">应用此样式</button>
+            <pre>
+                <code>
+@keyframes animate-no-middle-special {
+    from {
+        visibility: visible;
+    }
+    to {
+        visibility: hidden;
+    }
+}
+                </code>
+            </pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>属性值没有中间值</h2>
+            <button class="animate" data-name="animate-no-middle">应用此样式</button>
+            <pre>
+                <code>
+@keyframes animate-no-middle {
+    0% {
+        width: auto;
+    }
+    100% {
+        width: 300px;
+    }
+}
+                </code>
+            </pre>
+        </div>
+    </div>
+</div>
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+    (() => {
+        $('#refresh').on('click', () => {
+            location.reload();
+        });
+        $('#back').on('click', () => {
+            location.href = './index.html';
+        });
+
+        const $block = $('.block');
+        $('.animate').on('click', (item) => {
+            const target = item.currentTarget || item.target;
+            const { name } = target.dataset;
+            if ($block.css('animationName') === name) {
+                $block.css({
+                    animationName: ''
+                });
+                setTimeout(() => {
+                    $block.css({
+                        animationName: name
+                    });
+                }, 500);
+            } else {
+                $block.css({
+                    animationName: name
+                });
+            }
+        });
+    })();
+</script>
+</body>
+</html>

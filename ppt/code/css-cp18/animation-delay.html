@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation-duration</title>
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            left: 10px;
+            top: 20%;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        .col {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+        .block {
+            width: 100px;
+            height: 100px;
+            background-color: forestgreen;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        @keyframes moveToRight {
+            from {
+                left: 0;
+            }
+            50% {
+                left: 150px;
+            }
+            to {
+                left: 300px;
+            }
+        }
+        @keyframes translateToPink {
+            to {
+                background-color: pink;
+            }
+            50% {
+                background-image: linear-gradient(90deg, #1301FE 0, #F65DC3 29%, #FFF4C7 70%, #DFFF94 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+<button id="back">返回首页</button>
+<button id="refresh">刷新页面</button>
+<div class="block"></div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col">
+            <h2 id="timeoutText">延迟5s执行</h2>
+            <button id="timeout" class="animate" data-delay="5s">应用此样式</button>
+            <pre>
+                <code>
+.block {
+    animation-name: moveToRight,translateToPink;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-delay: 5s;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="col">
+            <h2>延迟-1s，迭代2次，相当于第一次从50%处开始</h2>
+            <button class="animate" data-delay="-1s">应用此样式</button>
+            <pre>
+                <code>
+.block {
+    animation-name: moveToRight,translateToPink;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-delay: -1s;
+}
+                </code>
+            </pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>负延迟太多了会咋样？</h2>
+            <button class="animate" data-delay="-100s">应用此样式</button>
+            <pre>
+                <code>
+.block {
+    animation-name: moveToRight,translateToPink;
+    animation-duration: 4s;
+    animation-iteration-count: 2;
+    animation-delay: -100s;
+}
+                </code>
+            </pre>
+        </div>
+    </div>
+</div>
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+    (() => {
+        $('#refresh').on('click', () => {
+            location.reload();
+        });
+        $('#back').on('click', () => {
+            location.href = './index.html';
+        });
+
+        let flag;
+        const $timerText = $('#timeoutText');
+
+        function showInterval(delay) {
+            console.log(delay);
+            if (delay === 0) {
+                $timerText.text('开始执行！');
+                setTimeout(() => {
+                    $timerText.text('延迟5s执行');
+                }, 8030);
+                return;
+            }
+            setTimeout(() => {
+                $timerText.text('延迟'+(delay-1)+'s执行');
+                showInterval(delay - 1);
+            }, 1000);
+        }
+
+        const $block = $('.block');
+        $block.on('animationstart', () => {
+            console.log('animationstart');
+        });
+        $block.on('animationend', () => {
+            console.log('animationend');
+        });
+        $('.animate').on('click', (item) => {
+            const target = item.currentTarget || item.target;
+            const { delay } = target.dataset;
+
+            if (target.id === 'timeout') {
+                showInterval(parseInt(delay, 10));
+            }
+
+            // 先置空
+            // moveToRight,translateToPink;
+            $block.css({
+                animationName: ''
+            });
+
+            setTimeout(() => {
+                $block.css({
+                    animationDuration: '4s',
+                    animationName: 'moveToRight,translateToPink',
+                    animationIterationCount: 2,
+                    animationDelay: delay
+                });
+            }, 300);
+        });
+    })();
+</script>
+</body>
+</html>

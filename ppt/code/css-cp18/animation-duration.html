@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>animation-duration</title>
+    <style>
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            left: 10px;
+            top: 20%;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+        .col {
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+        .block {
+            width: 100px;
+            height: 100px;
+            background-color: forestgreen;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        @keyframes moveToRight {
+            from {
+                left: 0;
+            }
+            50% {
+                left: 30px;
+            }
+            to {
+                left: 300px;
+            }
+        }
+        @keyframes translateToPink {
+            to {
+                background-color: pink;
+            }
+        }
+    </style>
+</head>
+<body>
+<button id="back">返回首页</button>
+<button id="refresh">刷新页面</button>
+<div class="block"></div>
+
+<div class="wrapper">
+    <div class="row">
+        <div class="col">
+            <h2>动画将在3s内完成</h2>
+            <button class="animate" data-duration="3s">应用此样式</button>
+            <pre>
+                <code>
+.block {
+    animation-name: moveToRight,translateToPink;
+    animation-duration: 3s;
+}
+                </code>
+            </pre>
+        </div>
+        <div class="col">
+            <h2>动画将在500ms内完成</h2>
+            <button class="animate" data-duration="500ms">应用此样式</button>
+            <pre>
+                <code>
+.block {
+    animation-name: moveToRight,translateToPink;
+    animation-duration: 3s;
+}
+                </code>
+            </pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>动画时长设为0试试，但会触发事件！</h2>
+            <button id="hasEvent" class="animate" data-duration="0s">应用此样式</button>
+            <pre>
+                <code>
+.block {
+    animation-name: moveToRight,translateToPink;
+    animation-duration: 0s;
+}
+                </code>
+            </pre>
+        </div>
+    </div>
+</div>
+<script src="jquery-3.6.0.min.js"></script>
+<script>
+    (() => {
+        $('#refresh').on('click', () => {
+            location.reload();
+        });
+        $('#back').on('click', () => {
+            location.href = './index.html';
+        });
+
+        let flag;
+
+
+        const $block = $('.block');
+        $block.on('animationstart', () => {
+            if (!flag) { return; }
+            console.log('animationstart');
+        });
+        $block.on('animationend', () => {
+            if (!flag) { return; }
+            console.log('animationend');
+        });
+        $('.animate').on('click', (item) => {
+            const target = item.currentTarget || item.target;
+            const { duration } = target.dataset;
+
+            if (target.id === 'hasEvent') {
+                flag = true;
+            } else {
+                flag = false;
+            }
+
+            // 先置空
+            // moveToRight,translateToPink;
+            $block.css({
+                animationDuration: '',
+                animationName: ''
+            });
+
+            setTimeout(() => {
+                $block.css({
+                    animationDuration: duration,
+                    animationName: 'moveToRight,translateToPink'
+                });
+            }, 300);
+        });
+    })();
+</script>
+</body>
+</html>
