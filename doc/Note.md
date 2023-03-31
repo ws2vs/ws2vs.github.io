@@ -84,11 +84,14 @@ git fetch origin ${TARGET_BRANCH_NAME}:${TARGET_BRANCH_NAME}
 
 ```
 [alias]
-        pl = pull
+    pl = pull
+        p = pull
         pp = !sh -c 'CURRENT=`git rev-parse --abbrev-ref HEAD` && git push origin ${CURRENT}'
         ps = !sh -c 'CURRENT=`git rev-parse --abbrev-ref HEAD` && git push origin HEAD:refs/for/${CURRENT}'
         ll = !sh -c 'TARGET=$0 && git fetch origin ${TARGET}:${TARGET}'
         lmg = !sh -c 'git ll $0 && git mg $0'
+        nb = checkout -b
+        db = !sh -c 'git bh -d $0 && git push origin --delete $0'
 
         ck = !sh -c 'git checkout $0'
         cka = checkout .
@@ -98,6 +101,7 @@ git fetch origin ${TARGET_BRANCH_NAME}:${TARGET_BRANCH_NAME}
         ss = status
         s = status
         st = stash
+        stl = stash list
         stp = stash pop
         l = log -3
         mg = merge
