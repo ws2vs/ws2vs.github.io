@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkws2vs_github_io=self.webpackChunkws2vs_github_io||[]).push([[535],{5641:s=>{s.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"R4S \u8f6f\u8def\u7531 \u65c1\u8def\u7531","permalink":"/blog/2022/03/28/r4s-side-router"}]}')}}]);
