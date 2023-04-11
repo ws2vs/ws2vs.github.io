@@ -4,7 +4,7 @@
 
 :::info
 因为使用的是树莓派，这里我更喜欢使用`docker`的方式来安装
-docker安装，参考[docker](../docker/install.md)
+docker安装，参考[docker](./docker.md)
 :::
 
 [home assistant官方按照教程](https://www.home-assistant.io/installation/raspberrypi#install-home-assistant-container)
