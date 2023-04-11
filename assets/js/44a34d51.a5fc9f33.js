@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkws2vs_github_io=self.webpackChunkws2vs_github_io||[]).push([[297],{7132:e=>{e.exports=JSON.parse('{"title":"FE","slug":"/category/fe","permalink":"/docs/category/fe","navigation":{"previous":{"title":"unix","permalink":"/docs/common-commands/unix"},"next":{"title":"\u7eaf\u51fd\u6570","permalink":"/docs/FE/function"}}}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkws2vs_github_io=self.webpackChunkws2vs_github_io||[]).push([[315],{1703:s=>{s.exports=JSON.parse('{"title":"Misc","slug":"/category/misc","permalink":"/docs/category/misc","navigation":{"previous":{"title":"\u7eaf\u51fd\u6570","permalink":"/docs/FE/function"},"next":{"title":"Home Assistant","permalink":"/docs/misc/Home-Assistant"}}}')}}]);

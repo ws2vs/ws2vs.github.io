@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkws2vs_github_io=self.webpackChunkws2vs_github_io||[]).push([[584],{5041:o=>{o.exports=JSON.parse('{"title":"Common Commands","slug":"/category/common-commands","permalink":"/docs/category/common-commands","navigation":{"previous":{"title":"note","permalink":"/docs/note"},"next":{"title":"centos","permalink":"/docs/common-commands/centos"}}}')}}]);
