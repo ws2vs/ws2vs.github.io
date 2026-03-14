@@ -55,11 +55,277 @@
   50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
 }
 
+/* 霓虹特效容器 - 随机分布 */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* 霓虹文字元素 - 随机分布 + 灯管边框 */
+.neonText {
+  position: absolute;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  animation: neonFlicker 3s ease-in-out infinite;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    inset 0 0 8px rgba(255, 255, 255, 0.15);
+}
+
+/* 随机位置 - 更分散更随机 */
+.neonText:nth-child(1) {
+  left: 5%;
+  top: 12%;
+  font-size: 13px;
+  color: #ff00ff;
+  transform: rotate(-8deg);
+  animation-delay: 0s;
+}
+
+.neonText:nth-child(2) {
+  right: 6%;
+  top: 18%;
+  font-size: 15px;
+  color: #00ffff;
+  transform: rotate(5deg);
+  animation-delay: -1.2s;
+}
+
+.neonText:nth-child(3) {
+  left: 8%;
+  bottom: 22%;
+  font-size: 12px;
+  color: #00ff88;
+  transform: rotate(-3deg);
+  animation-delay: -0.5s;
+}
+
+.neonText:nth-child(4) {
+  right: 4%;
+  bottom: 28%;
+  font-size: 14px;
+  color: #ff6600;
+  transform: rotate(10deg);
+  animation-delay: -2s;
+}
+
+@keyframes neonFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    border-color: currentColor;
+    box-shadow:
+      0 0 4px currentColor,
+      0 0 8px currentColor,
+      0 0 15px currentColor,
+      inset 0 0 6px rgba(255, 255, 255, 0.2);
+  }
+  20%, 24%, 55% {
+    opacity: 0.7;
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 0 2px currentColor,
+      inset 0 0 3px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* 霓虹灯管线条 */
+.neonTube {
+  position: absolute;
+  background: currentColor;
+  box-shadow:
+    0 0 6px currentColor,
+    0 0 12px currentColor,
+    0 0 24px currentColor,
+    0 0 48px currentColor;
+  animation: tubeGlow 2s ease-in-out infinite;
+}
+
+.neonTube:nth-child(5) {
+  left: 3%;
+  top: 25%;
+  width: 50px;
+  height: 3px;
+  color: #ff00ff;
+  transform: rotate(-25deg);
+}
+
+.neonTube:nth-child(6) {
+  right: 5%;
+  bottom: 20%;
+  width: 70px;
+  height: 3px;
+  color: #00ffff;
+  transform: rotate(12deg);
+  animation-delay: -0.7s;
+}
+
+.neonTube:nth-child(7) {
+  left: 6%;
+  bottom: 18%;
+  width: 3px;
+  height: 40px;
+  color: #00ff88;
+  animation-delay: -1.2s;
+}
+
+.neonTube:nth-child(8) {
+  right: 8%;
+  top: 35%;
+  width: 3px;
+  height: 35px;
+  color: #ff00ff;
+  transform: rotate(15deg);
+  animation-delay: -1.8s;
+}
+
+@keyframes tubeGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor;
+    opacity: 1;
+  }
+  50% {
+    box-shadow:
+      0 0 3px currentColor,
+      0 0 6px currentColor,
+      0 0 12px currentColor,
+      0 0 25px currentColor;
+    opacity: 0.85;
+  }
+}
+
+/* 霓虹点光源 */
+.neonDot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow:
+    0 0 4px currentColor,
+    0 0 8px currentColor,
+    0 0 15px currentColor;
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+.neonDot:nth-child(9) {
+  left: 12%;
+  top: 40%;
+  color: #ff00ff;
+}
+
+.neonDot:nth-child(10) {
+  right: 15%;
+  top: 50%;
+  color: #00ffff;
+  animation-delay: -0.3s;
+}
+
+.neonDot:nth-child(11) {
+  left: 20%;
+  bottom: 35%;
+  color: #00ff88;
+  animation-delay: -0.6s;
+}
+
+.neonDot:nth-child(12) {
+  right: 10%;
+  bottom: 38%;
+  color: #ff6600;
+  animation-delay: -0.9s;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.7;
+  }
+}
+
+/* 霓虹方框 */
+.neonBox {
+  position: absolute;
+  border: 2px solid currentColor;
+  box-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    inset 0 0 5px currentColor;
+  animation: boxPulse 3s ease-in-out infinite;
+}
+
+.neonBox:nth-child(13) {
+  left: 5%;
+  top: 55%;
+  width: 25px;
+  height: 25px;
+  color: #00ffff;
+  transform: rotate(40deg);
+}
+
+.neonBox:nth-child(14) {
+  right: 6%;
+  top: 10%;
+  width: 20px;
+  height: 20px;
+  color: #ff00ff;
+  animation-delay: -1s;
+}
+
+@keyframes boxPulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow:
+      0 0 5px currentColor,
+      0 0 10px currentColor,
+      inset 0 0 5px currentColor;
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow:
+      0 0 2px currentColor,
+      0 0 5px currentColor,
+      inset 0 0 2px currentColor;
+  }
+}
+
 .heroContent {
   position: relative;
   z-index: 1;
   text-align: center;
   max-width: 800px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .title {
@@ -120,19 +386,49 @@
   background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   color: #fff;
   box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.buttonPrimary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
 .buttonPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 6px 25px rgba(139, 92, 246, 0.4), 0 0 30px rgba(139, 92, 246, 0.3);
   color: #fff;
   text-decoration: none;
+}
+
+.buttonPrimary:hover::before {
+  left: 100%;
 }
 
 .buttonSecondary {
   background: transparent;
   color: #22d3ee;
   border: 2px solid rgba(34, 211, 238, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.buttonSecondary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.2), transparent);
+  transition: left 0.5s;
 }
 
 .buttonSecondary:hover {
@@ -140,6 +436,11 @@
   background: rgba(34, 211, 238, 0.1);
   color: #22d3ee;
   text-decoration: none;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+.buttonSecondary:hover::before {
+  left: 100%;
 }
 
 /* 功能卡片区域 */
@@ -164,12 +465,28 @@
   border: 1px solid var(--ifm-color-emphasis-200);
   text-decoration: none;
   transition: all 0.3s ease;
+  animation: cardFadeIn 0.6s ease-out backwards;
+}
+
+.featureCard:nth-child(1) { animation-delay: 0.1s; }
+.featureCard:nth-child(2) { animation-delay: 0.2s; }
+.featureCard:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .featureCard:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
   border-color: #8b5cf6;
-  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25), 0 0 20px rgba(139, 92, 246, 0.15);
   text-decoration: none;
 }
 
@@ -183,6 +500,12 @@
   margin-bottom: 1rem;
   background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(34, 211, 238, 0.1) 100%);
   color: #8b5cf6;
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover .featureIcon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
 }
 
 .featureCard:nth-child(2) .featureIcon {
@@ -226,6 +549,22 @@
 
 .statItem {
   text-align: center;
+  animation: statFadeIn 0.5s ease-out backwards;
+}
+
+.statItem:nth-child(1) { animation-delay: 0.2s; }
+.statItem:nth-child(2) { animation-delay: 0.3s; }
+.statItem:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes statFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .statNumber {
@@ -292,7 +631,11 @@
 @media (prefers-reduced-motion: reduce) {
   .hero::before,
   .hero::after,
-  .title {
+  .title,
+  .heroContent,
+  .particle,
+  .featureCard,
+  .statItem {
     animation: none;
   }
 }

@@ -33,6 +33,23 @@ function Hero() {
 
   return (
     <section className={styles.hero}>
+      <div className={styles.particles}>
+        {/* 霓虹文字 - 随机分布 */}
+        <span className={styles.neonText}>Neon Abyss</span>
+        <span className={styles.neonText}>rwby</span>
+        <span className={styles.neonText}>正在营业</span>
+        <span className={styles.neonText}>CAT BAR</span>
+
+        {/* 霓虹灯管线条 - 减少到4个 */}
+        <div className={styles.neonTube}></div>
+        <div className={styles.neonTube}></div>
+        <div className={styles.neonTube}></div>
+        <div className={styles.neonTube}></div>
+
+        {/* 霓虹方框 - 保留2个 */}
+        <div className={styles.neonBox}></div>
+        <div className={styles.neonBox}></div>
+      </div>
       <div className={styles.heroContent}>
         <h1 className={styles.title}>ws</h1>
         <p className={styles.subtitle}>{siteConfig.tagline}</p>
