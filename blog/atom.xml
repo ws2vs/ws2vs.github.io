@@ -13,8 +13,37 @@
         <link href="https://ws2vs.github.io/blog/2023/04/11/deploy-docusaurus-github-pages"/>
         <updated>2023-04-11T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[参考官方的文章：https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions]]></summary>
-        <content type="html"><![CDATA[<blockquote><p>参考官方的文章：<a href="https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions" target="_blank" rel="noopener noreferrer">https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions</a><br>
-<!-- -->文档和操作的日期: 2023-04-11</p></blockquote><h2 class="anchor anchorWithStickyNavbar_LWe7" id="步骤1-添加ci文件">步骤1 添加ci文件<a href="#步骤1-添加ci文件" class="hash-link" aria-label="Direct link to 步骤1 添加ci文件" title="Direct link to 步骤1 添加ci文件">​</a></h2><p>在项目根目录下添加目录<code>.github/workflows/</code>，以及部署yml文件，官方的<code>deploy.yml</code></p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="步骤2-稍作修改">步骤2 稍作修改<a href="#步骤2-稍作修改" class="hash-link" aria-label="Direct link to 步骤2 稍作修改" title="Direct link to 步骤2 稍作修改">​</a></h2><ol><li>修改<code>on.push</code>的<code>branches</code>设置为你需要触发ci的分支，比如<code>master</code>（也可以是tags等其他条件）</li><li>[可选]<!-- --> 设置nodejs的版本</li><li>设置包管理，这里推荐<code>npm</code>和<code>yarn</code>，且ci执行时需要有对应的lock文件，即<code>package-lock.json</code>或<code>yarn.lock</code></li><li>[可选]<!-- --> 设置steps，一般就是满足<code>npm install</code>和<code>npm run build</code>两个即可</li><li>其余可以不动，也可以按需修改</li></ol><h2 class="anchor anchorWithStickyNavbar_LWe7" id="步骤3-设置pages">步骤3 设置Pages<a href="#步骤3-设置pages" class="hash-link" aria-label="Direct link to 步骤3 设置Pages" title="Direct link to 步骤3 设置Pages">​</a></h2><p>设置的路径在<code>Settings</code> -&gt; 侧边栏的<code>Pages</code></p><p>需要设置如下</p><div class="theme-admonition theme-admonition-info alert alert--info admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_S0QG"><p><code>gh-pages</code>会在ci跑的时候自动创建，也可以自己手动新建。建议提前新建好。</p></div></div><ol><li><code>Build and deployment</code>下的<code>branch</code>为<code>gh-pages</code></li><li>文件目录为<code>/(root)</code> 也就是根目录</li></ol><p><img loading="lazy" src="/assets/images/Jietu_20230412000337-6f4862466b478a208ad89e2efe144926.png" width="1226" height="469" class="img_ev3q"></p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="步骤4-检查和排障">步骤4 检查和排障<a href="#步骤4-检查和排障" class="hash-link" aria-label="Direct link to 步骤4 检查和排障" title="Direct link to 步骤4 检查和排障">​</a></h2><ol><li>假设设置的触发时机是<code>on.push</code>，那么每次提交后，仓库首页都会有个√或者×，点开可以看到具体跑了那些</li><li>如果没有自己定义的ci（官方的name叫<code>Deploy to GitHub Pages</code>），那么可能是没有满足触发时机，检查你的分支是否满足要求</li><li>如果有x，那么可以查看<code>details</code>做近一步排查（比如我使用pnpm....)</li><li>job执行需要时间</li></ol><p><img loading="lazy" src="/assets/images/Jietu_20230412000308-10ed519e2d952a6b71bfd698981eddb3.png" width="952" height="234" class="img_ev3q"></p>]]></content>
+        <content type="html"><![CDATA[<blockquote>
+<p>参考官方的文章：<a href="https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions" target="_blank" rel="noopener noreferrer" class="">https://docusaurus.io/docs/deployment#triggering-deployment-with-github-actions</a><br>
+<!-- -->文档和操作的日期: 2023-04-11</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="步骤1-添加ci文件">步骤1 添加ci文件<a href="https://ws2vs.github.io/blog/2023/04/11/deploy-docusaurus-github-pages#%E6%AD%A5%E9%AA%A41-%E6%B7%BB%E5%8A%A0ci%E6%96%87%E4%BB%B6" class="hash-link" aria-label="Direct link to 步骤1 添加ci文件" title="Direct link to 步骤1 添加ci文件" translate="no">​</a></h2>
+<p>在项目根目录下添加目录<code>.github/workflows/</code>，以及部署yml文件，官方的<code>deploy.yml</code></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="步骤2-稍作修改">步骤2 稍作修改<a href="https://ws2vs.github.io/blog/2023/04/11/deploy-docusaurus-github-pages#%E6%AD%A5%E9%AA%A42-%E7%A8%8D%E4%BD%9C%E4%BF%AE%E6%94%B9" class="hash-link" aria-label="Direct link to 步骤2 稍作修改" title="Direct link to 步骤2 稍作修改" translate="no">​</a></h2>
+<ol>
+<li class="">修改<code>on.push</code>的<code>branches</code>设置为你需要触发ci的分支，比如<code>master</code>（也可以是tags等其他条件）</li>
+<li class="">[可选] 设置nodejs的版本</li>
+<li class="">设置包管理，这里推荐<code>npm</code>和<code>yarn</code>，且ci执行时需要有对应的lock文件，即<code>package-lock.json</code>或<code>yarn.lock</code></li>
+<li class="">[可选] 设置steps，一般就是满足<code>npm install</code>和<code>npm run build</code>两个即可</li>
+<li class="">其余可以不动，也可以按需修改</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="步骤3-设置pages">步骤3 设置Pages<a href="https://ws2vs.github.io/blog/2023/04/11/deploy-docusaurus-github-pages#%E6%AD%A5%E9%AA%A43-%E8%AE%BE%E7%BD%AEpages" class="hash-link" aria-label="Direct link to 步骤3 设置Pages" title="Direct link to 步骤3 设置Pages" translate="no">​</a></h2>
+<p>设置的路径在<code>Settings</code> -&gt; 侧边栏的<code>Pages</code></p>
+<p>需要设置如下</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p><code>gh-pages</code>会在ci跑的时候自动创建，也可以自己手动新建。建议提前新建好。</p></div></div>
+<ol>
+<li class=""><code>Build and deployment</code>下的<code>branch</code>为<code>gh-pages</code></li>
+<li class="">文件目录为<code>/(root)</code> 也就是根目录</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://ws2vs.github.io/assets/images/Jietu_20230412000337-6f4862466b478a208ad89e2efe144926.png" width="1226" height="469" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="步骤4-检查和排障">步骤4 检查和排障<a href="https://ws2vs.github.io/blog/2023/04/11/deploy-docusaurus-github-pages#%E6%AD%A5%E9%AA%A44-%E6%A3%80%E6%9F%A5%E5%92%8C%E6%8E%92%E9%9A%9C" class="hash-link" aria-label="Direct link to 步骤4 检查和排障" title="Direct link to 步骤4 检查和排障" translate="no">​</a></h2>
+<ol>
+<li class="">假设设置的触发时机是<code>on.push</code>，那么每次提交后，仓库首页都会有个√或者×，点开可以看到具体跑了那些</li>
+<li class="">如果没有自己定义的ci（官方的name叫<code>Deploy to GitHub Pages</code>），那么可能是没有满足触发时机，检查你的分支是否满足要求</li>
+<li class="">如果有x，那么可以查看<code>details</code>做近一步排查（比如我使用pnpm....)</li>
+<li class="">job执行需要时间</li>
+</ol>
+<p><img decoding="async" loading="lazy" src="https://ws2vs.github.io/assets/images/Jietu_20230412000308-10ed519e2d952a6b71bfd698981eddb3.png" width="952" height="234" class="img_ev3q"></p>]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[R4S 软路由 旁路由]]></title>
@@ -22,8 +51,63 @@
         <link href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router"/>
         <updated>2022-03-28T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[使用R4S作为一台软路由，安装openWrt系统。在网络拓扑结构中，以旁路由的形式存在，添加一些网络功能]]></summary>
-        <content type="html"><![CDATA[<p>使用R4S作为一台软路由，安装openWrt系统。在网络拓扑结构中，以旁路由的形式存在，添加一些网络功能</p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="r4s">R4S<a href="#r4s" class="hash-link" aria-label="Direct link to R4S" title="Direct link to R4S">​</a></h2><p>准备的东西有如下</p><ul><li>R4S一台</li><li>R4S的电源</li><li>TF卡</li><li>TF卡读卡器</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="1下载openwrt镜像">1、下载openWrt镜像<a href="#1下载openwrt镜像" class="hash-link" aria-label="Direct link to 1、下载openWrt镜像" title="Direct link to 1、下载openWrt镜像">​</a></h2><p>镜像选用<a href="https://github.com/SuLingGG" target="_blank" rel="noopener noreferrer">SuLingGG</a>的，参考<a href="https://github.com/SuLingGG/OpenWrt-Rpi" target="_blank" rel="noopener noreferrer">github文档</a>，选择适合R4S的openWrt镜像。</p><p>有以下几点注意一下</p><ul><li>文件格式选<code>ext4</code>，为了有良好的<code>linux</code>体验</li><li><code>systemupgrade</code>还是<code>factory</code>，一般选前置</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="2写盘">2、写盘<a href="#2写盘" class="hash-link" aria-label="Direct link to 2、写盘" title="Direct link to 2、写盘">​</a></h2><p>先下载写盘软件<a href="https://rufus.ie/zh/" target="_blank" rel="noopener noreferrer">rufus</a></p><div class="theme-admonition theme-admonition-caution alert alert--warning admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>注意</div><div class="admonitionContent_S0QG"><p>关闭R4S的电源，再拔出TF卡，<strong>注意：TF卡不能热插拔！！！</strong> （第一次请忽略）</p><p>直接按照软件提示的进行写盘操作，<strong>注意：不要使用windows系统的格式化提示格式化TF，直接写即可</strong></p></div></div><h2 class="anchor anchorWithStickyNavbar_LWe7" id="3安装系统">3、安装系统<a href="#3安装系统" class="hash-link" aria-label="Direct link to 3、安装系统" title="Direct link to 3、安装系统">​</a></h2><p>请严格按照顺序</p><ul><li><code>step1</code> 关闭R4S的电源，拔掉一切线材。</li><li><code>step2</code> 将一个网络，连接R4S的<code>LAN</code>口，以及一台<code>PC</code>的<code>WAN</code>口。这将组成一个局域网</li><li><code>step3</code> 通过<code>PC</code>输入R4S的ip地址，这一般是由镜像提供者指定的一个固定的地址。比如上面提供的镜像一般是<code>192.168.1.1</code><ul><li>如果<code>step2</code>将R4S和路由器直接连上的话，那么R4S的ip地址可能会被DHCP所分配，从而进不了后台系统</li></ul></li><li><code>step4</code> 确认系统无误后进行下一步</li></ul><h2 class="anchor anchorWithStickyNavbar_LWe7" id="4旁路由设置">4、旁路由设置<a href="#4旁路由设置" class="hash-link" aria-label="Direct link to 4、旁路由设置" title="Direct link to 4、旁路由设置">​</a></h2><p>旁路由是非侵入式的软路由设置方式。和主路由是解耦的，作为一个附加功能附着在原有的网络拓扑结构中。</p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="41设置openwrt系统中的lan">4.1、设置openWrt系统中的LAN<a href="#41设置openwrt系统中的lan" class="hash-link" aria-label="Direct link to 4.1、设置openWrt系统中的LAN" title="Direct link to 4.1、设置openWrt系统中的LAN">​</a></h3><div class="theme-admonition theme-admonition-caution alert alert--warning admonition_LlT9"><div class="admonitionHeading_tbUL"><span class="admonitionIcon_kALy"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>注意</div><div class="admonitionContent_S0QG"><p>请先点保存，不要点保存&amp;应用</p></div></div><h4 class="anchor anchorWithStickyNavbar_LWe7" id="411设置软路由的静态ip地址并将数据包转发会主路由">4.1.1、设置软路由的静态IP地址，并将数据包转发会主路由<a href="#411设置软路由的静态ip地址并将数据包转发会主路由" class="hash-link" aria-label="Direct link to 4.1.1、设置软路由的静态IP地址，并将数据包转发会主路由" title="Direct link to 4.1.1、设置软路由的静态IP地址，并将数据包转发会主路由">​</a></h4><p><img loading="lazy" alt="图1" src="/assets/images/0zm6s120009dx3ye19664-fb2f0a11a8b79c9f508d2bfd190035ec.png" width="2914" height="1856" class="img_ev3q"></p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="412关闭ipv6">4.1.2、关闭IPV6<a href="#412关闭ipv6" class="hash-link" aria-label="Direct link to 4.1.2、关闭IPV6" title="Direct link to 4.1.2、关闭IPV6">​</a></h4><p><img loading="lazy" alt="图2" src="/assets/images/Jietu20220328-203935@2x-2eb55bdc8e380cf1bbc24221b2518743.png" width="1800" height="930" class="img_ev3q">
-<img loading="lazy" alt="图3" src="/assets/images/Jietu20220328-204011@2x-9fca32e55844868dd7e6f98782ef68f5.png" width="1414" height="558" class="img_ev3q"></p><h4 class="anchor anchorWithStickyNavbar_LWe7" id="413关闭lan口的dhcp将dhcp的职责交给主路由">4.1.3、关闭LAN口的DHCP，将DHCP的职责交给主路由<a href="#413关闭lan口的dhcp将dhcp的职责交给主路由" class="hash-link" aria-label="Direct link to 4.1.3、关闭LAN口的DHCP，将DHCP的职责交给主路由" title="Direct link to 4.1.3、关闭LAN口的DHCP，将DHCP的职责交给主路由">​</a></h4><p><img loading="lazy" alt="图4" src="/assets/images/Jietu20220328-203824@2x-cfd1e32673aa6381710ee2eac452f7d8.png" width="1514" height="350" class="img_ev3q"></p><h3 class="anchor anchorWithStickyNavbar_LWe7" id="42防火墙配置">4.2、防火墙配置<a href="#42防火墙配置" class="hash-link" aria-label="Direct link to 4.2、防火墙配置" title="Direct link to 4.2、防火墙配置">​</a></h3><p>两点</p><ul><li>1、关闭<code>SYN-flood 防御</code></li><li>2、开启 <code>IP 动态伪装</code></li></ul><p><img loading="lazy" alt="图5" src="/assets/images/Jietu20220328-204541@2x-7d3b1e293ee7883e5f7bbfd5b9f31c01.png" width="2876" height="1704" class="img_ev3q"></p><h2 class="anchor anchorWithStickyNavbar_LWe7" id="5使用">5、使用<a href="#5使用" class="hash-link" aria-label="Direct link to 5、使用" title="Direct link to 5、使用">​</a></h2><p>需要使用的端（PC、手机、PS5等）</p><ul><li>设置ip，随意挑选即可</li><li>固定网关为<code>255.255.255.0</code></li><li>路由器或者服务器选<code>[软路由的ip]</code></li><li>dns服务器选<code>[软路由的ip]</code></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>使用R4S作为一台软路由，安装openWrt系统。在网络拓扑结构中，以旁路由的形式存在，添加一些网络功能</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="r4s">R4S<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#r4s" class="hash-link" aria-label="Direct link to R4S" title="Direct link to R4S" translate="no">​</a></h2>
+<p>准备的东西有如下</p>
+<ul>
+<li class="">R4S一台</li>
+<li class="">R4S的电源</li>
+<li class="">TF卡</li>
+<li class="">TF卡读卡器</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="1下载openwrt镜像">1、下载openWrt镜像<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#1%E4%B8%8B%E8%BD%BDopenwrt%E9%95%9C%E5%83%8F" class="hash-link" aria-label="Direct link to 1、下载openWrt镜像" title="Direct link to 1、下载openWrt镜像" translate="no">​</a></h2>
+<p>镜像选用<a href="https://github.com/SuLingGG" target="_blank" rel="noopener noreferrer" class="">SuLingGG</a>的，参考<a href="https://github.com/SuLingGG/OpenWrt-Rpi" target="_blank" rel="noopener noreferrer" class="">github文档</a>，选择适合R4S的openWrt镜像。</p>
+<p>有以下几点注意一下</p>
+<ul>
+<li class="">文件格式选<code>ext4</code>，为了有良好的<code>linux</code>体验</li>
+<li class=""><code>systemupgrade</code>还是<code>factory</code>，一般选前置</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="2写盘">2、写盘<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#2%E5%86%99%E7%9B%98" class="hash-link" aria-label="Direct link to 2、写盘" title="Direct link to 2、写盘" translate="no">​</a></h2>
+<p>先下载写盘软件<a href="https://rufus.ie/zh/" target="_blank" rel="noopener noreferrer" class="">rufus</a></p>
+<div class="theme-admonition theme-admonition-caution admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>注意</div><div class="admonitionContent_BuS1"><p>关闭R4S的电源，再拔出TF卡，<strong>注意：TF卡不能热插拔！！！</strong> （第一次请忽略）</p><p>直接按照软件提示的进行写盘操作，<strong>注意：不要使用windows系统的格式化提示格式化TF，直接写即可</strong></p></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3安装系统">3、安装系统<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#3%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F" class="hash-link" aria-label="Direct link to 3、安装系统" title="Direct link to 3、安装系统" translate="no">​</a></h2>
+<p>请严格按照顺序</p>
+<ul>
+<li class=""><code>step1</code> 关闭R4S的电源，拔掉一切线材。</li>
+<li class=""><code>step2</code> 将一个网络，连接R4S的<code>LAN</code>口，以及一台<code>PC</code>的<code>WAN</code>口。这将组成一个局域网</li>
+<li class=""><code>step3</code> 通过<code>PC</code>输入R4S的ip地址，这一般是由镜像提供者指定的一个固定的地址。比如上面提供的镜像一般是<code>192.168.1.1</code>
+<ul>
+<li class="">如果<code>step2</code>将R4S和路由器直接连上的话，那么R4S的ip地址可能会被DHCP所分配，从而进不了后台系统</li>
+</ul>
+</li>
+<li class=""><code>step4</code> 确认系统无误后进行下一步</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4旁路由设置">4、旁路由设置<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#4%E6%97%81%E8%B7%AF%E7%94%B1%E8%AE%BE%E7%BD%AE" class="hash-link" aria-label="Direct link to 4、旁路由设置" title="Direct link to 4、旁路由设置" translate="no">​</a></h2>
+<p>旁路由是非侵入式的软路由设置方式。和主路由是解耦的，作为一个附加功能附着在原有的网络拓扑结构中。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="41设置openwrt系统中的lan">4.1、设置openWrt系统中的LAN<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#41%E8%AE%BE%E7%BD%AEopenwrt%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84lan" class="hash-link" aria-label="Direct link to 4.1、设置openWrt系统中的LAN" title="Direct link to 4.1、设置openWrt系统中的LAN" translate="no">​</a></h3>
+<div class="theme-admonition theme-admonition-caution admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>注意</div><div class="admonitionContent_BuS1"><p>请先点保存，不要点保存&amp;应用</p></div></div>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="411设置软路由的静态ip地址并将数据包转发会主路由">4.1.1、设置软路由的静态IP地址，并将数据包转发会主路由<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#411%E8%AE%BE%E7%BD%AE%E8%BD%AF%E8%B7%AF%E7%94%B1%E7%9A%84%E9%9D%99%E6%80%81ip%E5%9C%B0%E5%9D%80%E5%B9%B6%E5%B0%86%E6%95%B0%E6%8D%AE%E5%8C%85%E8%BD%AC%E5%8F%91%E4%BC%9A%E4%B8%BB%E8%B7%AF%E7%94%B1" class="hash-link" aria-label="Direct link to 4.1.1、设置软路由的静态IP地址，并将数据包转发会主路由" title="Direct link to 4.1.1、设置软路由的静态IP地址，并将数据包转发会主路由" translate="no">​</a></h4>
+<p><img decoding="async" loading="lazy" alt="图1" src="https://ws2vs.github.io/assets/images/0zm6s120009dx3ye19664-fb2f0a11a8b79c9f508d2bfd190035ec.png" width="2914" height="1856" class="img_ev3q"></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="412关闭ipv6">4.1.2、关闭IPV6<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#412%E5%85%B3%E9%97%ADipv6" class="hash-link" aria-label="Direct link to 4.1.2、关闭IPV6" title="Direct link to 4.1.2、关闭IPV6" translate="no">​</a></h4>
+<p><img decoding="async" loading="lazy" alt="图2" src="https://ws2vs.github.io/assets/images/Jietu20220328-203935@2x-2eb55bdc8e380cf1bbc24221b2518743.png" width="1800" height="930" class="img_ev3q">
+<img decoding="async" loading="lazy" alt="图3" src="https://ws2vs.github.io/assets/images/Jietu20220328-204011@2x-9fca32e55844868dd7e6f98782ef68f5.png" width="1414" height="558" class="img_ev3q"></p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="413关闭lan口的dhcp将dhcp的职责交给主路由">4.1.3、关闭LAN口的DHCP，将DHCP的职责交给主路由<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#413%E5%85%B3%E9%97%ADlan%E5%8F%A3%E7%9A%84dhcp%E5%B0%86dhcp%E7%9A%84%E8%81%8C%E8%B4%A3%E4%BA%A4%E7%BB%99%E4%B8%BB%E8%B7%AF%E7%94%B1" class="hash-link" aria-label="Direct link to 4.1.3、关闭LAN口的DHCP，将DHCP的职责交给主路由" title="Direct link to 4.1.3、关闭LAN口的DHCP，将DHCP的职责交给主路由" translate="no">​</a></h4>
+<p><img decoding="async" loading="lazy" alt="图4" src="https://ws2vs.github.io/assets/images/Jietu20220328-203824@2x-cfd1e32673aa6381710ee2eac452f7d8.png" width="1514" height="350" class="img_ev3q"></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="42防火墙配置">4.2、防火墙配置<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#42%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE" class="hash-link" aria-label="Direct link to 4.2、防火墙配置" title="Direct link to 4.2、防火墙配置" translate="no">​</a></h3>
+<p>两点</p>
+<ul>
+<li class="">1、关闭<code>SYN-flood 防御</code></li>
+<li class="">2、开启 <code>IP 动态伪装</code></li>
+</ul>
+<p><img decoding="async" loading="lazy" alt="图5" src="https://ws2vs.github.io/assets/images/Jietu20220328-204541@2x-7d3b1e293ee7883e5f7bbfd5b9f31c01.png" width="2876" height="1704" class="img_ev3q"></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="5使用">5、使用<a href="https://ws2vs.github.io/blog/2022/03/28/r4s-side-router#5%E4%BD%BF%E7%94%A8" class="hash-link" aria-label="Direct link to 5、使用" title="Direct link to 5、使用" translate="no">​</a></h2>
+<p>需要使用的端（PC、手机、PS5等）</p>
+<ul>
+<li class="">设置ip，随意挑选即可</li>
+<li class="">固定网关为<code>255.255.255.0</code></li>
+<li class="">路由器或者服务器选<code>[软路由的ip]</code></li>
+<li class="">dns服务器选<code>[软路由的ip]</code></li>
+</ul>]]></content>
         <category label="网络" term="网络"/>
     </entry>
 </feed>

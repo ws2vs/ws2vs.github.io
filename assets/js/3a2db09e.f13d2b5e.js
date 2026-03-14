@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkws2vs_github_io=globalThis.webpackChunkws2vs_github_io||[]).push([[121],{8070(s){s.exports=JSON.parse('{"tags":[{"label":"\u7f51\u7edc","permalink":"/blog/tags/\u7f51\u7edc","count":1}]}')}}]);
