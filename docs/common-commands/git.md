@@ -6,14 +6,16 @@ slug: git
 
 ```
 [alias]
-    pl = pull
-        p = pull
+        pl = pull
         pp = !sh -c 'CURRENT=`git rev-parse --abbrev-ref HEAD` && git push origin ${CURRENT}'
         ps = !sh -c 'CURRENT=`git rev-parse --abbrev-ref HEAD` && git push origin HEAD:refs/for/${CURRENT}'
         ll = !sh -c 'TARGET=$0 && git fetch origin ${TARGET}:${TARGET}'
         lmg = !sh -c 'git ll $0 && git mg $0'
-        nb = checkout -b
+        nb = !sh -c 'git checkout -b $0 && git pp && git branch --set-upstream-to=origin/$0 $0'
         db = !sh -c 'git bh -d $0 && git push origin --delete $0'
+        dbr = !sh -c 'git push origin --delete $0'
+        ubr = !sh -c 'git remote update origin --prune'
+        rshard = !sh -c 'git reset $0 --hard'
 
         ck = !sh -c 'git checkout $0'
         cka = checkout .
@@ -21,12 +23,13 @@ slug: git
         cm = commit -m
         cma = commit --amend
         ss = status
-        s = status
         st = stash
         stl = stash list
         stp = stash pop
         l = log -3
         mg = merge
+        mgc = merge --continue
+        mga = merge --abort
         bh = branch
         cp = cherry-pick
 ```
