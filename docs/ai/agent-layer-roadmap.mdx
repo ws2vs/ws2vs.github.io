@@ -1,0 +1,201 @@
+---
+sidebar_position: 1
+---
+
+# Agent 层全景地图 & 打怪升级路线
+
+第二层（Agent Layer）的边界与学习路径
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs>
+<TabItem value="map" label="第二层全景地图" default>
+
+## 六大核心领域
+
+<div className="row">
+<div className="col col--4">
+
+### 🟢 上下文工程
+- **Context window 管理**  
+  如何分配有限 token 预算
+- **System prompt 设计**  
+  角色定义、约束、输出格式
+- **对话历史压缩**  
+  compact / summarize 策略
+- **分层记忆**  
+  working / episodic / long-term
+- **Few-shot 构造**  
+  示例选择与动态注入
+
+</div>
+<div className="col col--4">
+
+### 🟣 Agent 架构
+- **ReAct 循环**  
+  Reason → Act → Observe 迭代
+- **Plan-and-Execute**  
+  先规划再执行，可中断修正
+- **Multi-Agent 编排**  
+  orchestrator + subagent 分工
+- **错误恢复机制**  
+  重试、降级、人工介入
+- **状态机设计**  
+  Agent 的生命周期管理
+
+</div>
+<div className="col col--4">
+
+### 🟡 工具调用系统
+- **Tool schema 设计**  
+  名称、描述、参数的写法影响调用质量
+- **并行 vs 串行调用**  
+  何时可以并发，何时必须顺序
+- **工具结果处理**  
+  错误格式化、截断、过滤
+- **工具权限与沙箱**  
+  防止越权操作
+- **MCP 协议设计**  
+  标准化工具接入层
+
+</div>
+</div>
+
+<div className="row">
+<div className="col col--4">
+
+### 🔴 RAG 工程
+- **Chunking 策略**  
+  固定窗口 / 语义分割 / 递归分割
+- **Embedding 选型**  
+  OpenAI / Cohere / 本地模型
+- **向量库选型**  
+  Pinecone / Qdrant / pgvector
+- **混合检索**  
+  向量 + 关键词（BM25）融合
+- **Reranking**  
+  检索后二次排序提升精度
+
+</div>
+<div className="col col--4">
+
+### 🔵 性能与可靠性
+- **Prompt 缓存**  
+  prefix cache / KV cache 复用
+- **Streaming 处理**  
+  流式输出的中断与恢复
+- **延迟优化**  
+  TTFT / 并发请求控制
+- **Token 成本控制**  
+  预算管理、模型分级调用
+- **可观测性**  
+  trace / span / token 计量
+
+</div>
+<div className="col col--4">
+
+### ⚪ 评估与迭代
+- **Eval 框架设计**  
+  如何定义好答案
+- **自动化测试**  
+  LLM-as-judge 评分
+- **Prompt 版本管理**  
+  变更追踪与回滚
+- **A/B 测试**  
+  不同策略的效果对比
+- **失败案例分析**  
+  从坏输出中提炼改进点
+
+</div>
+</div>
+
+---
+
+**图例说明：**
+- 🟢 上下文工程——最先触碰，影响最广
+- 🟣 Agent 架构——核心骨架
+- 🟡 工具调用——连接外部世界
+- 🔴 RAG 工程——知识注入
+- 🔵 性能与可靠性——生产必备
+- ⚪ 评估与迭代——持续进化
+
+</TabItem>
+<TabItem value="road" label="打怪升级路线">
+
+## 第一关 · 2-3周
+
+### 造一个能跑起来的最小 Agent
+
+**目标**：白盒化 Agent 循环，不再靠框架魔法
+
+| 任务 | 描述 |
+|------|------|
+| **裸写 ReAct 循环** | 不用 LangChain，只用 Anthropic API，手动实现 think→tool→observe 迭代，理解每一次 API call 在干什么 |
+| **实现 2-3 个真实工具** | 文件读写、网络请求、代码执行。重点：写好 tool schema，感受描述质量对调用准确率的影响 |
+| **手动管理 context** | 用 token 计数器监控窗口用量，自己写对话历史截断逻辑，感受 context 压力 |
+| **加错误恢复** | 工具调用失败时怎么重试，错误信息怎么格式化反馈给模型，防止死循环 |
+
+:::tip 通关标志
+你的 Agent 能独立完成「读取一个目录，分析文件，生成报告」这类多步任务，不崩溃
+:::
+
+---
+
+## 第二关 · 3-4周
+
+### 上下文工程专项
+
+**目标**：掌握 token 预算分配，让 Agent 跑更长更稳
+
+| 任务 | 描述 |
+|------|------|
+| **分层记忆系统** | 设计 working memory（当前任务）/ episodic（本次会话摘要）/ long-term（持久化存储）三层结构 |
+| **Prompt 缓存实战** | 用 Anthropic 的 cache_control，把 system prompt 和工具定义缓存，测量实际省了多少 token 和延迟 |
+| **动态 few-shot 注入** | 根据当前任务类型，从示例库里检索最相关的 2-3 个示例注入 prompt，而不是写死 |
+| **Compact 策略对比** | 对比三种压缩方式：截断最旧消息 / 摘要压缩 / 层级摘要，在你的场景里哪个信息损失最小 |
+
+:::tip 通关标志
+同一个 Agent 能跑 50 轮对话不撑爆 context，且关键信息不丢失
+:::
+
+---
+
+## 第三关 · 3-4周
+
+### 接入 RAG，让 Agent 有长期记忆
+
+**目标**：从「知道怎么用 RAG」到「会调 RAG 的参数」
+
+| 任务 | 描述 |
+|------|------|
+| **从零搭 RAG pipeline** | 自选向量库（推荐先用 pgvector 或 Qdrant），手写 chunk → embed → store → retrieve 全流程 |
+| **对比 chunking 策略** | 同一份文档用固定 512 字 / 语义分割 / 递归分割，看检索质量的差异，建立直觉 |
+| **混合检索** | 向量检索 + BM25 关键词检索结果合并，用 RRF 算法融合排名，感受准确率提升 |
+| **RAG 接入 Agent** | 把向量库包装成一个工具，让 Agent 自己决定什么时候检索、检索什么，而不是每次都检索 |
+
+:::tip 通关标志
+Agent 能回答「上周我们讨论过的技术方案里，哪个最适合当前需求？」这类跨会话问题
+:::
+
+---
+
+## 第四关 · 持续
+
+### Multi-Agent 编排 + 评估体系
+
+**目标**：从单 Agent 到系统，从凭感觉到数据驱动
+
+| 任务 | 描述 |
+|------|------|
+| **Orchestrator 模式** | 一个主 Agent 负责规划和分发，多个子 Agent 各司其职（代码 Agent、搜索 Agent、写作 Agent），理解任务拆分边界 |
+| **搭 Eval 框架** | 为你的 Agent 写测试集，用 LLM-as-judge 自动评分，让每次改动都有数据支撑而非主观感觉 |
+| **可观测性接入** | 接入 Langfuse 或自建 trace，每次 Agent 运行都有完整的 span 记录，方便排查问题 |
+| **成本优化** | 用小模型（Haiku）处理简单判断，大模型（Sonnet）处理复杂推理，设计模型分级调用策略 |
+
+:::tip 通关标志
+你改了一个 prompt，5分钟内知道它让整体效果变好还是变差，有数据说话
+:::
+
+</TabItem>
+</Tabs>
