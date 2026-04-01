@@ -21,3 +21,6 @@ yarn-error.log*
 
 # idea
 .idea
+
+# claude local
+.claude/settings.local.json
